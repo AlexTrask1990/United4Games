@@ -32,6 +32,12 @@
   --breakpoint-laptop: 1024px;
   --breakpoint-desktop: 1280px;
   --breakpoint-widescreen: 1444px;
+
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
 }
 
 * {
@@ -65,6 +71,34 @@ body {
 
 .text-balance {
   text-wrap: balance;
+}
+
+.btn {
+  display: inline-flex;
+  height: 3rem;
+  min-height: 3rem;
+  cursor: pointer;
+  user-select: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-custom);
+  border-width: 1px;
+  border-color: transparent;
+  padding-inline: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-base-100);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-accent-red);
 }
 
 .brand-accent-line {
