@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+  /* United4Digital core palette */
+  --color-primary: #151f4f;
+  --color-primary-dark: #0d1538;
+  --color-primary-light: #1e2d6b;
+  --color-secondary: #ff6839;
+  --color-base-100: #f2f2f2;
+  --color-gray-50: #404970;
+  --color-gray-100: #e8e9ed;
+  --color-gray-transparent-60: rgba(222, 222, 222, 0.8);
+
+  /* Gaming accent palette */
+  --color-accent-red: #ff4757;
+  --color-accent-blue: #6ec1e4;
+  --color-accent-orange: #ff6839;
+
+  /* Typography */
+  --font-sans: var(--font-open-sans), Arial, Helvetica, sans-serif;
+  --font-display: var(--font-exo-2), var(--font-open-sans), sans-serif;
+
+  /* Layout tokens from United4Digital */
+  --radius-custom: 2.78px;
+  --spacing-86: 5.375rem;
+  --spacing-15: 3.75rem;
+  --spacing-100: 6.25rem;
+  --text-heading-xl: 2.5rem;
+  --leading-heading-xl: 3.404rem;
+  --shadow-heading-xl: 0px 4px 4px 0px #00000040;
+  --breakpoint-tablet: 640px;
+  --breakpoint-laptop: 1024px;
+  --breakpoint-desktop: 1280px;
+  --breakpoint-widescreen: 1444px;
+}
+
+* {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #151f4f;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: var(--color-base-100);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-shadow-heading {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.brand-accent-line {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.brand-accent-line span {
+  display: block;
+  height: 0.25rem;
+  width: 2rem;
+  border-radius: 9999px;
+}
+
+.brand-accent-line span:nth-child(1) {
+  background-color: #ff4757;
+}
+
+.brand-accent-line span:nth-child(2) {
+  background-color: #ff6839;
+}
+
+.brand-accent-line span:nth-child(3) {
+  background-color: #6ec1e4;
+}
+
+.hero-gaming-bg {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #0d1538 0%,
+    #151f4f 45%,
+    #1e2d6b 100%
+  );
+}
+
+.hero-gaming-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(110, 193, 228, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(110, 193, 228, 0.1) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  mask-image: radial-gradient(ellipse at center, black 15%, transparent 75%);
+  pointer-events: none;
+}
+
+.hero-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.hero-glow-red {
+  top: 10%;
+  left: 8%;
+  width: 14rem;
+  height: 14rem;
+  background-color: rgba(255, 71, 87, 0.22);
+}
+
+.hero-glow-orange {
+  top: 35%;
+  right: 10%;
+  width: 18rem;
+  height: 18rem;
+  background-color: rgba(255, 104, 57, 0.2);
+}
+
+.hero-glow-blue {
+  bottom: 8%;
+  left: 35%;
+  width: 16rem;
+  height: 16rem;
+  background-color: rgba(110, 193, 228, 0.24);
+}
+
+.section-games-bg {
+  background: linear-gradient(
+    180deg,
+    var(--color-base-100) 0%,
+    #e8edf5 100%
+  );
+}
+
+.section-partners-bg {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    var(--color-base-100) 100%
+  );
+}
+
+.section-card {
+  border: 1px solid rgba(21, 31, 79, 0.08);
+  border-radius: var(--radius-custom);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.section-card-gaming {
+  border: 1px solid rgba(110, 193, 228, 0.25);
+  box-shadow: 0 0 0 1px rgba(255, 104, 57, 0.06);
+}
+
+.section-heading-accent {
+  display: inline-block;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--color-secondary);
+}
