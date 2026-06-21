@@ -1,12 +1,15 @@
 import Link from "next/link";
 import _ from "lodash";
-import { BrandLogo } from "@/app/ui/BrandLogo/BrandLogo";
 import {
   footerContactLink,
+  footerCopyright,
   footerLegalLinks,
   footerNavLinks,
 } from "@/app/lib/footerLinks";
 import { externalLinks } from "@/app/lib/links";
+import { socialLinks, supportEmail } from "@/app/lib/socialLinks";
+import { United4GamesWordmark } from "@/app/ui/BrandLogo/BrandLogo";
+import { SocialLinks } from "@/app/ui/Social/SocialLinks";
 
 const FooterNavItem = ({
   label,
@@ -18,15 +21,26 @@ const FooterNavItem = ({
   external?: boolean;
 }) => {
   if (href) {
+    if (external) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-100 transition-colors hover:text-accent-blue"
+        >
+          {label}
+        </a>
+      );
+    }
+
     return (
-      <a
+      <Link
         href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
         className="text-gray-100 transition-colors hover:text-accent-blue"
       >
         {label}
-      </a>
+      </Link>
     );
   }
 
@@ -49,21 +63,27 @@ export default function Footer() {
         <div className="flex flex-col gap-12 laptop:flex-row laptop:items-start laptop:justify-between">
           <div className="max-w-sm">
             <Link href="/" aria-label="United4Games home">
-              <BrandLogo />
+              <United4GamesWordmark />
             </Link>
             <p className="mt-6 text-balance text-base leading-relaxed text-gray-100">
-              We build and publish games with the monetization power of the
-              United4Digital network.
+              Games that inspire — built and published with the United4Digital
+              network.
             </p>
             <div className="mt-6 flex gap-1.5" aria-hidden="true">
               <span className="block h-1 w-8 rounded-full bg-accent-red" />
               <span className="block h-1 w-8 rounded-full bg-secondary" />
               <span className="block h-1 w-8 rounded-full bg-accent-blue" />
             </div>
+            <a
+              href={`mailto:${supportEmail}`}
+              className="mt-6 inline-block text-sm text-accent-blue transition-opacity hover:opacity-80"
+            >
+              {supportEmail}
+            </a>
           </div>
 
           <nav
-            aria-label="Footer navigation"
+            aria-label="Footer sitemap"
             className="grid grid-cols-2 gap-x-8 gap-y-4 tablet:grid-cols-3"
           >
             {_.map(footerNavLinks, (link) => (
@@ -97,14 +117,21 @@ export default function Footer() {
 
         <div className="mt-14 border-t border-white/15 pt-8">
           <div className="flex flex-col gap-6 laptop:flex-row laptop:items-center laptop:justify-between">
-            <nav
-              aria-label="Legal links"
-              className="flex flex-wrap gap-x-6 gap-y-3"
-            >
-              {_.map(footerLegalLinks, (link) => (
-                <FooterNavItem key={link.label} {...link} />
-              ))}
-            </nav>
+            <div className="flex flex-col gap-4 laptop:flex-row laptop:items-center laptop:gap-8">
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-100">Follow us:</span>
+                <SocialLinks links={socialLinks} />
+              </div>
+
+              <nav
+                aria-label="Legal links"
+                className="flex flex-wrap gap-x-6 gap-y-3"
+              >
+                {_.map(footerLegalLinks, (link) => (
+                  <FooterNavItem key={link.label} {...link} />
+                ))}
+              </nav>
+            </div>
 
             <p className="max-w-md text-sm text-gray-100/70">
               71-75 Shelton Street, Covent Garden, London, England, WC2H 9JQ
@@ -112,7 +139,7 @@ export default function Footer() {
           </div>
 
           <p className="mt-8 text-sm text-gray-100/50 laptop:text-right">
-            © {new Date().getFullYear()} United4Games. All rights reserved.
+            {footerCopyright}
           </p>
         </div>
       </div>

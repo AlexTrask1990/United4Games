@@ -3,7 +3,11 @@
 import { motion } from "framer-motion";
 import _ from "lodash";
 import { games } from "@/app/lib/games";
-import { defaultRevealTransition, fadeUp } from "@/app/lib/motion";
+import {
+  defaultRevealTransition,
+  fadeUp,
+  staggerGrid,
+} from "@/app/lib/motion";
 import { GameCard } from "@/app/ui/sections/OurGamesSection/GameCard";
 
 export const OurGamesSection = () => {
@@ -28,16 +32,22 @@ export const OurGamesSection = () => {
             Our Games
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-gray-50">
-            A growing portfolio of mobile titles — from casual hits to mid-core
-            experiences built for global audiences.
+            Hook Wars is a dynamic mobile PvP game where every hook can change
+            the outcome of a match.
           </p>
         </motion.div>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 tablet:grid-cols-2">
+        <motion.div
+          className="mx-auto mt-12 max-w-3xl"
+          variants={staggerGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {_.map(games, (game) => (
             <GameCard key={game.id} game={game} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

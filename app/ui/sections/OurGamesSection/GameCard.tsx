@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { GameItem, gameAccentStyles } from "@/app/lib/games";
 import { defaultRevealTransition, fadeUp } from "@/app/lib/motion";
+import { GameCardMedia } from "@/app/ui/sections/OurGamesSection/GameCardMedia";
 
 interface GameCardProps {
   game: GameItem;
@@ -26,27 +27,21 @@ export const GameCard = ({ game }: GameCardProps) => {
       }
       transition={{ ...defaultRevealTransition, duration: 0.5 }}
     >
-      <div
-        className={`relative flex aspect-video items-end p-5 ${accent.tile}`}
-      >
+      <div className="relative w-full overflow-hidden">
+        <GameCardMedia title={game.title} media={game.media} />
+
         <span
-          className={`rounded-custom px-3 py-1 text-xs font-bold uppercase tracking-wide ${accent.badge}`}
+          className={`absolute bottom-5 left-5 rounded-custom px-3 py-1 text-xs font-bold uppercase tracking-wide ${accent.badge}`}
         >
           {game.genre}
         </span>
-        <span
-          className="font-display absolute top-4 right-4 text-5xl font-black text-white/15"
-          aria-hidden="true"
-        >
-          {game.title.charAt(0)}
-        </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-2xl font-bold text-primary">
+      <div className="flex flex-1 flex-col p-6 laptop:p-8">
+        <h3 className="font-display text-2xl font-bold text-primary laptop:text-3xl">
           {game.title}
         </h3>
-        <p className="mt-3 flex-1 text-base leading-relaxed text-gray-50">
+        <p className="mt-3 flex-1 text-base leading-relaxed text-gray-50 laptop:text-lg">
           {game.description}
         </p>
         <span
