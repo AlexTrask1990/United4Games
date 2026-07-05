@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import _ from "lodash";
@@ -154,9 +154,13 @@ export const MobileMenu = ({ onOpenChange }: MobileMenuProps) => {
                             {linkContent}
                           </a>
                         ) : (
-                          <Link href={link.href} onClick={closeMenu} className={linkClassName}>
+                          <SectionLink
+                            href={link.href}
+                            onNavigate={closeMenu}
+                            className={linkClassName}
+                          >
                             {linkContent}
-                          </Link>
+                          </SectionLink>
                         )}
                       </motion.li>
                     );

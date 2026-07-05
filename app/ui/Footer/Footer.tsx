@@ -6,9 +6,11 @@ import {
   footerLegalLinks,
   footerNavLinks,
 } from "@/app/lib/footerLinks";
+import { getSectionIdFromHref } from "@/app/lib/scrollToSection";
 import { externalLinks } from "@/app/lib/links";
 import { socialLinks, supportEmail } from "@/app/lib/socialLinks";
 import { United4GamesWordmark } from "@/app/ui/BrandLogo/BrandLogo";
+import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 import { SocialLinks } from "@/app/ui/Social/SocialLinks";
 
 const FooterNavItem = ({
@@ -31,6 +33,17 @@ const FooterNavItem = ({
         >
           {label}
         </a>
+      );
+    }
+
+    if (href && getSectionIdFromHref(href)) {
+      return (
+        <SectionLink
+          href={href}
+          className="text-gray-100 transition-colors hover:text-accent-blue"
+        >
+          {label}
+        </SectionLink>
       );
     }
 
@@ -96,14 +109,12 @@ export default function Footer() {
             <p className="font-display text-lg font-bold leading-snug text-white">
               Ready to partner on the next hit game?
             </p>
-            <a
-              href={footerContactLink.href}
-              target="_blank"
-              rel="noopener noreferrer"
+            <SectionLink
+              href={footerContactLink.href ?? externalLinks.contactUs}
               className="inline-flex w-fit items-center justify-center rounded-custom bg-secondary px-6 py-3 text-sm font-bold text-white transition-all hover:bg-accent-red"
             >
               Contact Us
-            </a>
+            </SectionLink>
             <a
               href={externalLinks.united4Digital}
               target="_blank"

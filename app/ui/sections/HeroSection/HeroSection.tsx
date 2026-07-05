@@ -7,6 +7,7 @@ import {
   easeOutExpo,
   fadeUp,
 } from "@/app/lib/motion";
+import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 
 export const HeroSection = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -58,15 +59,13 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.6, ease: easeOutExpo }}
           >
-            <a
+            <SectionLink
               id="hero-partner-cta"
               href={externalLinks.contactUs}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex rounded-custom bg-secondary px-8 py-3.5 text-base font-bold text-white shadow-[0_0_24px_rgba(255,104,57,0.3)] transition-all hover:bg-accent-red hover:shadow-[0_0_28px_rgba(255,71,87,0.35)]"
             >
               Partner With Us
-            </a>
+            </SectionLink>
           </motion.div>
         </motion.div>
 

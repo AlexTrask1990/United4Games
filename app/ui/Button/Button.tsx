@@ -2,6 +2,7 @@
 
 import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 import { externalLinks } from "@/app/lib/links";
+import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string;
@@ -14,19 +15,26 @@ export const Button: FC<ButtonProps> = ({
   icon,
   className,
   type = "button",
+  "aria-label": ariaLabel,
   ...props
 }) => {
-  const handleClick = () => {
-    if (type === "button") {
-      window.open(externalLinks.contactUs, "_blank", "noopener,noreferrer");
-    }
-  };
+  if (type === "button") {
+    return (
+      <SectionLink
+        href={externalLinks.contactUs}
+        aria-label="contact us button"
+        className={`btn text-base-100 leading-4 font-bold ${className}`}
+      >
+        {label && <span className="label-container">{label}</span>}
+        {icon && <span className="icon-container">{icon}</span>}
+      </SectionLink>
+    );
+  }
 
   return (
     <button
       type={type}
-      onClick={handleClick}
-      aria-label="contact us button"
+      aria-label={ariaLabel ?? label ?? "button"}
       className={`btn text-base-100 leading-4 font-bold ${className}`}
       {...props}
     >

@@ -9,6 +9,7 @@ import {
   fadeUp,
   staggerGrid,
 } from "@/app/lib/motion";
+import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -20,7 +21,7 @@ export const MarketingSection = () => {
     <section
       id="marketing-partners"
       aria-labelledby="marketing-partners-heading"
-      className="scroll-mt-86 bg-white px-6 py-24"
+      className="scroll-anchor-offset bg-white px-6 py-24"
     >
       <div className="container mx-auto max-w-4xl">
         <motion.div
@@ -108,14 +109,12 @@ export const MarketingSection = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ ...defaultRevealTransition, delay: 0.15 }}
         >
-          <a
+          <SectionLink
             href={externalLinks.contactUs}
-            target="_blank"
-            rel="noopener noreferrer"
             className="inline-flex rounded-custom bg-secondary px-8 py-3.5 text-base font-bold text-white shadow-[0_0_24px_rgba(255,104,57,0.25)] transition-all hover:bg-accent-red hover:shadow-[0_0_28px_rgba(255,71,87,0.35)]"
           >
             {marketingContent.ctaLabel}
-          </a>
+          </SectionLink>
         </motion.div>
       </div>
     </section>

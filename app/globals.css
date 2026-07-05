@@ -50,6 +50,7 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
+  scroll-padding-top: var(--header-offset);
   background-color: #151f4f;
 }
 
@@ -72,6 +73,10 @@ body {
 
 .text-balance {
   text-wrap: balance;
+}
+
+.scroll-anchor-offset {
+  scroll-margin-top: var(--header-offset);
 }
 
 .btn {
@@ -100,6 +105,71 @@ body {
 
 .btn-secondary:hover {
   background-color: var(--color-accent-red);
+}
+
+.form-field {
+  display: block;
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.form-input {
+  height: 2.5rem;
+  width: 100%;
+  border-radius: var(--radius-custom);
+  border: 1px solid rgba(21, 31, 79, 0.15);
+  padding-inline: 0.75rem;
+  color: var(--color-primary);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 0 2px rgba(110, 193, 228, 0.3);
+}
+
+.form-input-error {
+  border-color: var(--color-accent-red);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.form-error {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 0.75rem;
+  color: var(--color-accent-red);
+}
+
+.form-input .PhoneInputInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.form-input.PhoneInput {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 0.5rem;
+}
+
+.form-input .PhoneInputCountry {
+  margin-right: 0.25rem;
+}
+
+.form-input .PhoneInputCountrySelect {
+  color: var(--color-primary);
 }
 
 .brand-accent-line {

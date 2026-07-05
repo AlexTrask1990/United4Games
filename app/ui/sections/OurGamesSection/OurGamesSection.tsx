@@ -15,7 +15,7 @@ export const OurGamesSection = () => {
     <section
       id="our-games"
       aria-labelledby="our-games-heading"
-      className="scroll-mt-86 bg-base-100 px-6 py-24"
+      className="scroll-anchor-offset bg-base-100 px-6 py-24"
     >
       <div className="container mx-auto max-w-6xl">
         <motion.div

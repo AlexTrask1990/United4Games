@@ -15,7 +15,7 @@ export const footerNavLinks: FooterLink[] = [
 ];
 
 export const footerLegalLinks: FooterLink[] = [
-  { label: "Cookie Policy", href: COOKIE_POLICY_URL, external: true },
+  { label: "Cookie Policy", href: COOKIE_POLICY_URL },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms of Use", href: "/terms" },
 ];
@@ -23,7 +23,6 @@ export const footerLegalLinks: FooterLink[] = [
 export const footerContactLink: FooterLink = {
   label: "Contact Us",
   href: externalLinks.contactUs,
-  external: true,
 };
 
 export const footerCopyright =

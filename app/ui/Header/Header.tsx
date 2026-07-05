@@ -6,6 +6,7 @@ import _ from "lodash";
 import { externalLinks, sectionLinks } from "@/app/lib/links";
 import { BrandLogo, ParentBrandLogo } from "@/app/ui/BrandLogo/BrandLogo";
 import { MobileMenu } from "@/app/ui/Header/MobileMenu/MobileMenu";
+import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,10 +64,6 @@ export default function Header() {
           >
             <BrandLogo />
           </Link>
-          <span
-            className="hidden h-8 w-px bg-white/20 tablet:block"
-            aria-hidden="true"
-          />
           <a
             href={externalLinks.united4Digital}
             target="_blank"
@@ -79,27 +76,15 @@ export default function Header() {
         </div>
 
         <div className="hidden items-center gap-8 laptop:flex">
-          {_.map(sectionLinks, (link) =>
-            link.external ? (
-              <a
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-base font-medium text-white transition-colors hover:text-accent-blue"
-              >
-                {link.name}
-              </a>
-            ) : (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-base font-medium text-white transition-colors hover:text-accent-blue"
-              >
-                {link.name}
-              </Link>
-            ),
-          )}
+          {_.map(sectionLinks, (link) => (
+            <SectionLink
+              key={link.name}
+              href={link.href}
+              className="text-base font-medium text-white transition-colors hover:text-accent-blue"
+            >
+              {link.name}
+            </SectionLink>
+          ))}
 
           <a
             href={externalLinks.united4Digital}

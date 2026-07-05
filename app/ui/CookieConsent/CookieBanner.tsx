@@ -61,8 +61,6 @@ export const CookieBanner = () => {
             cookies. Read our{" "}
             <Link
               href={COOKIE_POLICY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-accent-blue underline underline-offset-2 hover:opacity-80"
             >
               Cookie Policy
