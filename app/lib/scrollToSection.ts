@@ -10,6 +10,16 @@ export const getSectionIdFromHref = (href: string): string | null => {
   return sectionId || null;
 };
 
+const getHeaderScrollOffset = () => {
+  const headerElement = document.querySelector("header");
+
+  if (headerElement) {
+    return headerElement.getBoundingClientRect().height;
+  }
+
+  return 86;
+};
+
 export const scrollToSection = (
   sectionId: string,
   behavior: ScrollBehavior = "smooth",
@@ -20,7 +30,15 @@ export const scrollToSection = (
     return false;
   }
 
-  section.scrollIntoView({ behavior, block: "start" });
+  const headerOffset = getHeaderScrollOffset();
+  const sectionTop =
+    section.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+  window.scrollTo({
+    top: Math.max(0, sectionTop),
+    behavior,
+  });
+
   return true;
 };
 

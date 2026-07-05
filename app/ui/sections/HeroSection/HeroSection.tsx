@@ -101,7 +101,7 @@ export const HeroSection = () => {
             </p>
 
             <div
-              className="mt-6 flex flex-wrap justify-center gap-2 laptop:justify-start"
+              className="mt-6 hidden flex-wrap justify-center gap-2 laptop:flex laptop:justify-start"
               role="group"
               aria-label="Partner button animation mode"
             >
@@ -126,7 +126,7 @@ export const HeroSection = () => {
               })}
             </div>
 
-            <p className="mt-2 text-center text-xs text-white/45 laptop:text-left">
+            <p className="mt-2 hidden text-center text-xs text-white/45 laptop:block laptop:text-left">
               {heroPartnerButtonAnimations[buttonAnimationMode].description}
             </p>
 
@@ -169,7 +169,7 @@ export const HeroSection = () => {
           </motion.div>
 
           <motion.div
-            className="relative mx-auto mt-10 flex w-full justify-center laptop:pointer-events-none laptop:absolute laptop:inset-y-0 laptop:right-[-2%] laptop:mt-0 laptop:items-center laptop:justify-end desktop:right-0"
+            className="relative mx-auto mt-10 hidden w-full justify-center laptop:pointer-events-none laptop:absolute laptop:inset-y-0 laptop:right-[-2%] laptop:mt-0 laptop:flex laptop:items-center laptop:justify-end desktop:right-0"
             initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.15, duration: 0.65, ease: easeOutExpo }}

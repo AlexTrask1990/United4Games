@@ -291,6 +291,11 @@ body {
   aspect-ratio: 12 / 7;
 }
 
+.marketing-partners-lottie {
+  width: 100%;
+  aspect-ratio: 1250 / 550;
+}
+
 @media (min-width: 1024px) {
   .hero-character-size {
     width: auto;
