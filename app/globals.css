@@ -285,6 +285,18 @@ body {
   background-color: rgba(110, 193, 228, 0.24);
 }
 
+.hero-character-size {
+  width: clamp(300px, 92vw, 400px);
+  height: auto;
+  aspect-ratio: 12 / 7;
+}
+
+@media (min-width: 1024px) {
+  .hero-character-size {
+    width: auto;
+  }
+}
+
 .section-games-bg {
   background: linear-gradient(
     180deg,

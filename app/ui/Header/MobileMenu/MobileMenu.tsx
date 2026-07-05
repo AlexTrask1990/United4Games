@@ -27,11 +27,6 @@ interface MobileMenuProps {
 
 export const MobileMenu = ({ onOpenChange }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -205,7 +200,9 @@ export const MobileMenu = ({ onOpenChange }: MobileMenuProps) => {
   return (
     <div className="laptop:hidden">
       <MenuToggle isOpen={isOpen} onToggle={toggleMenu} />
-      {isMounted ? createPortal(menuOverlay, document.body) : null}
+      {typeof document !== "undefined"
+        ? createPortal(menuOverlay, document.body)
+        : null}
     </div>
   );
 };

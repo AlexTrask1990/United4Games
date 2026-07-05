@@ -3,9 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import { externalLinks, sectionLinks } from "@/app/lib/links";
-import { BrandLogo, ParentBrandLogo } from "@/app/ui/BrandLogo/BrandLogo";
+import { sectionLinks } from "@/app/lib/links";
+import { BrandLogo } from "@/app/ui/BrandLogo/BrandLogo";
 import { MobileMenu } from "@/app/ui/Header/MobileMenu/MobileMenu";
+import {
+  United4DigitalLogoLink,
+  United4DigitalNavButton,
+} from "@/app/ui/Header/United4DigitalHeaderLinks";
 import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 
 export default function Header() {
@@ -64,15 +68,7 @@ export default function Header() {
           >
             <BrandLogo />
           </Link>
-          <a
-            href={externalLinks.united4Digital}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="United4Digital home"
-            className="hidden transition-opacity hover:opacity-85 laptop:block"
-          >
-            <ParentBrandLogo />
-          </a>
+          <United4DigitalLogoLink />
         </div>
 
         <div className="hidden items-center gap-8 laptop:flex">
@@ -86,14 +82,7 @@ export default function Header() {
             </SectionLink>
           ))}
 
-          <a
-            href={externalLinks.united4Digital}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-custom bg-secondary px-5 py-2.5 text-base font-bold text-white transition-all hover:bg-accent-red hover:shadow-[0_0_20px_rgba(255,71,87,0.35)]"
-          >
-            United4Digital.com
-          </a>
+          <United4DigitalNavButton />
         </div>
 
         <MobileMenu onOpenChange={setIsMobileMenuOpen} />

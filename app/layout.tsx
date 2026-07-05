@@ -22,6 +22,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${openSans.variable} ${exo2.variable} flex min-h-full flex-col antialiased`}
+        suppressHydrationWarning
       >
         <JsonLd data={[organizationJsonLd, webSiteJsonLd]} />
         {children}
