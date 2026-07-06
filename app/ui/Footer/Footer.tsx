@@ -80,7 +80,7 @@ export default function Footer() {
             </Link>
             <p className="mt-6 text-balance text-base leading-relaxed text-gray-100">
               Games that inspire — built and published with the United4Digital
-              network.
+              Ltd.
             </p>
             <div className="mt-6 flex gap-1.5" aria-hidden="true">
               <span className="block h-1 w-8 rounded-full bg-accent-red" />
