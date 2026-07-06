@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { GameItem, gameAccentStyles } from "@/app/lib/games";
 import { defaultRevealTransition, fadeUp } from "@/app/lib/motion";
 import { GameCardMedia } from "@/app/ui/sections/OurGamesSection/GameCardMedia";
+import { GameStoreButtons } from "@/app/ui/sections/OurGamesSection/GameStoreButtons";
 
 interface GameCardProps {
   game: GameItem;
@@ -44,12 +45,11 @@ export const GameCard = ({ game }: GameCardProps) => {
         <p className="mt-3 flex-1 text-base leading-relaxed text-gray-50 laptop:text-lg">
           {game.description}
         </p>
-        <span
-          className={`mt-6 inline-flex w-fit cursor-default items-center justify-center rounded-custom px-6 py-2.5 text-sm font-bold text-white ${accent.button}`}
-          aria-disabled="true"
-        >
-          Play Now
-        </span>
+        <GameStoreButtons
+          storeLinks={game.storeLinks}
+          accent={game.accent}
+          gameTitle={game.title}
+        />
       </div>
     </motion.article>
   );

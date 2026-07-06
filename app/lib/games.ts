@@ -6,6 +6,11 @@ export interface GameMedia {
   posterSrc?: string;
 }
 
+export interface GameStoreLinks {
+  android?: string;
+  ios?: string;
+}
+
 export interface GameItem {
   id: string;
   title: string;
@@ -13,7 +18,14 @@ export interface GameItem {
   genre: string;
   accent: "red" | "orange" | "blue";
   media: GameMedia;
+  storeLinks: GameStoreLinks;
 }
+
+const readStoreUrl = (environmentKey: string): string | undefined => {
+  const value = process.env[environmentKey]?.trim();
+
+  return value || undefined;
+};
 
 export const games: GameItem[] = [
   {
@@ -25,6 +37,10 @@ export const games: GameItem[] = [
     accent: "orange",
     media: {
       kind: "screenshot",
+    },
+    storeLinks: {
+      android: readStoreUrl("NEXT_PUBLIC_HOOK_WARS_ANDROID_URL"),
+      ios: readStoreUrl("NEXT_PUBLIC_HOOK_WARS_IOS_URL"),
     },
   },
 ];
