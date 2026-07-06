@@ -1,10 +1,15 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { supportEmail } from "@/app/lib/socialLinks";
+import {
+  defaultContactRecipient,
+  getContactRecipientOption,
+  isContactRecipientValue,
+} from "@/app/lib/contactRecipients";
 
 export const POST = async (request: Request) => {
   try {
     const {
+      recipient = defaultContactRecipient,
       firstName = "",
       lastName = "",
       email = "",
@@ -13,6 +18,14 @@ export const POST = async (request: Request) => {
       subject = "",
       message = "",
     } = await request.json();
+
+    const recipientValue = isContactRecipientValue(String(recipient))
+      ? recipient
+      : defaultContactRecipient;
+    const recipientOption = getContactRecipientOption(recipientValue);
+    const emailSubject = subject.trim()
+      ? `[${recipientOption.label}] ${subject.trim()}`
+      : `[${recipientOption.label}] Contact form message`;
 
     const transporter = nodemailer.createTransport({
       host: "smtpout.secureserver.net",
@@ -34,11 +47,12 @@ export const POST = async (request: Request) => {
         name: `${firstName} ${lastName}`,
         address: email,
       },
-      to: supportEmail,
-      subject,
+      to: recipientOption.email,
+      subject: emailSubject,
       text: message,
       html: `
         <div>
+          <h2>Write to: ${recipientOption.label}</h2>
           <h2>Customer name: ${firstName} ${lastName}</h2>
           <h3>Customer phone: ${phoneNumber}</h3>
           <h3>Customer email: ${email}</h3>

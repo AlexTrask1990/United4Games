@@ -1,10 +1,23 @@
 import * as yup from "yup";
+import {
+  ContactRecipient,
+  contactRecipientOptions,
+} from "@/app/lib/contactRecipients";
 import { ContactFormKeys } from "@/app/types/contactForm";
 
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
+const recipientValues = contactRecipientOptions.map(
+  (contactRecipient) => contactRecipient.value,
+);
+
 export const contactFormSchema = yup
   .object({
+    [ContactFormKeys.RECIPIENT]: yup
+      .string()
+      .oneOf(recipientValues, "Please select who you want to contact")
+      .required("Please select who you want to contact")
+      .default(ContactRecipient.UNITED4GAMES),
     [ContactFormKeys.FIRST_NAME]: yup
       .string()
       .matches(/^[A-Za-z]+$/, "Only letters are allowed")

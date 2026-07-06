@@ -12,7 +12,9 @@ import {
   hasRecaptchaSiteKey,
   RecaptchaField,
 } from "@/app/ui/ContactForm/RecaptchaField";
+import { ContactRecipientField } from "@/app/ui/ContactForm/ContactRecipientField";
 import { sendContactMail } from "@/app/lib/sendContactMail";
+import { defaultContactRecipient } from "@/app/lib/contactRecipients";
 import { socialLinks } from "@/app/lib/socialLinks";
 import { Button } from "@/app/ui/Button/Button";
 import { LinkedInIcon } from "@/app/ui/Social/SocialLinks";
@@ -39,6 +41,9 @@ export const ContactForm = () => {
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: yupResolver(contactFormSchema) as Resolver<ContactFormData>,
+    defaultValues: {
+      [ContactFormKeys.RECIPIENT]: defaultContactRecipient,
+    },
   });
 
   const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
@@ -49,6 +54,7 @@ export const ContactForm = () => {
     if (isSent) {
       setSuccess(true);
       reset({
+        [ContactFormKeys.RECIPIENT]: defaultContactRecipient,
         firstName: "",
         lastName: "",
         email: "",
@@ -71,6 +77,8 @@ export const ContactForm = () => {
   return (
     <div className="relative w-full rounded-custom border border-primary/10 bg-white p-4 shadow-sm laptop:p-6">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <ContactRecipientField control={control} errors={errors} />
+
         <div className="laptop:flex laptop:justify-between laptop:gap-4">
           <label className="form-field relative w-full laptop:min-w-[300px]">
             <span className="form-label">

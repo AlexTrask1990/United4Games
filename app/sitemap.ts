@@ -10,6 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: getSiteUrl("/careers"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: getSiteUrl("/cookie-policy"),
       lastModified: new Date(),
       changeFrequency: "yearly",

@@ -1,4 +1,7 @@
+import type { ContactRecipientValue } from "@/app/lib/contactRecipients";
+
 export enum ContactFormKeys {
+  RECIPIENT = "recipient",
   FIRST_NAME = "firstName",
   LAST_NAME = "lastName",
   EMAIL = "email",
@@ -10,6 +13,7 @@ export enum ContactFormKeys {
 }
 
 export type ContactFormData = {
+  [ContactFormKeys.RECIPIENT]: ContactRecipientValue;
   [ContactFormKeys.FIRST_NAME]: string;
   [ContactFormKeys.LAST_NAME]: string;
   [ContactFormKeys.EMAIL]: string;
