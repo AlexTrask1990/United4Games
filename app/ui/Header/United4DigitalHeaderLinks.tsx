@@ -28,11 +28,11 @@ export const United4DigitalLogoLink = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="United4Digital home"
-      className="group hidden laptop:block"
+      className="group flex shrink-0 items-center"
       initial="rest"
       whileHover={prefersReducedMotion ? undefined : "hover"}
     >
-      <span className="font-display text-2xl font-black leading-none tracking-tight laptop:text-3xl">
+      <span className="font-display text-4xl font-black leading-none tracking-tight laptop:text-3xl">
         {[
           { char: "U", className: "text-white" },
           { char: "4", className: "text-secondary" },
@@ -48,7 +48,7 @@ export const United4DigitalLogoLink = () => {
           </motion.span>
         ))}
       </span>
-      <span className="mt-1 block h-0.5 max-w-0 bg-accent-blue transition-all duration-300 group-hover:max-w-full group-focus-visible:max-w-full" />
+      <span className="mt-1 hidden h-0.5 max-w-0 bg-accent-blue transition-all duration-300 group-hover:max-w-full group-focus-visible:max-w-full laptop:block" />
     </motion.a>
   );
 };

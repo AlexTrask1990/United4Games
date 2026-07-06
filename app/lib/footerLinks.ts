@@ -9,7 +9,6 @@ export interface FooterLink {
 
 export const footerNavLinks: FooterLink[] = [
   { label: "Our Games", href: "/#our-games" },
-  { label: "Marketing & Partners", href: "/#marketing-partners" },
   { label: "Press Kit" },
   { label: "Careers" },
 ];

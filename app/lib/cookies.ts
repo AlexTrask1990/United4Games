@@ -1,4 +1,4 @@
-export const ACCEPT_COOKIES_KEY = "acceptCookies";
+export const ACCEPT_COOKIES_KEY = "united4games-accept-cookies";
 
 export const COOKIE_CONSENT_ACCEPTED = "true";
 export const COOKIE_CONSENT_REJECTED = "false";

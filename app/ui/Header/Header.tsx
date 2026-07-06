@@ -64,7 +64,7 @@ export default function Header() {
           <Link
             href="/"
             aria-label="United4Games home"
-            className="transition-opacity hover:opacity-85"
+            className="hidden transition-opacity hover:opacity-85 laptop:block"
           >
             <BrandLogo />
           </Link>
