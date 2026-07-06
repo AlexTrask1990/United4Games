@@ -39,6 +39,7 @@ export const RecaptchaField = ({
     <div className={className}>
       <ReCAPTCHA
         sitekey={recaptchaSiteKey}
+        hl="en"
         onChange={onChange}
         {...props}
       />
