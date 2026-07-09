@@ -1,10 +1,55 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 import {
   defaultContactRecipient,
   getContactRecipientOption,
   isContactRecipientValue,
 } from "@/app/lib/contactRecipients";
+import {
+  getSmtpProfile,
+  getSmtpProfileForLogging,
+} from "@/app/lib/smtpConfig";
+
+const logContactMail = (
+  message: string,
+  details: Record<string, unknown>,
+) => {
+  console.info(
+    `[contact-mail] ${message}`,
+    JSON.stringify(details, null, 2),
+  );
+};
+
+const logContactMailError = (
+  message: string,
+  error: unknown,
+  details: Record<string, unknown>,
+) => {
+  const nodemailerError = error as SMTPTransport.SentMessageInfo & {
+    code?: string;
+    command?: string;
+    response?: string;
+    responseCode?: number;
+  };
+
+  console.error(
+    `[contact-mail] ${message}`,
+    JSON.stringify(
+      {
+        ...details,
+        errorName: error instanceof Error ? error.name : "UnknownError",
+        errorMessage: error instanceof Error ? error.message : String(error),
+        errorCode: nodemailerError.code,
+        errorCommand: nodemailerError.command,
+        errorResponse: nodemailerError.response,
+        errorResponseCode: nodemailerError.responseCode,
+      },
+      null,
+      2,
+    ),
+  );
+};
 
 export const POST = async (request: Request) => {
   try {
@@ -23,18 +68,49 @@ export const POST = async (request: Request) => {
       ? recipient
       : defaultContactRecipient;
     const recipientOption = getContactRecipientOption(recipientValue);
+    const smtpProfile = getSmtpProfile();
     const emailSubject = subject.trim()
       ? `[${recipientOption.label}] ${subject.trim()}`
       : `[${recipientOption.label}] Contact form message`;
 
+    const customerName = `${firstName} ${lastName}`.trim();
+    const mailContext = {
+      recipient: recipientValue,
+      recipientLabel: recipientOption.label,
+      to: recipientOption.email,
+      fromName: customerName,
+      fromAddress: email,
+      senderAddress: smtpProfile.user,
+      replyToAddress: email,
+      subject: emailSubject,
+      smtp: getSmtpProfileForLogging(smtpProfile),
+      nodeEnv: process.env.NODE_ENV,
+    };
+
+    logContactMail("Preparing contact form email", mailContext);
+
+    if (!smtpProfile.user || !smtpProfile.password) {
+      logContactMailError(
+        "SMTP credentials are missing",
+        new Error("SMTP credentials are missing"),
+        mailContext,
+      );
+
+      return NextResponse.json(
+        { error: "Mail server is not configured." },
+        { status: 500 },
+      );
+    }
+
     const transporter = nodemailer.createTransport({
-      host: "smtpout.secureserver.net",
-      port: 465,
-      secure: true,
+      host: smtpProfile.host,
+      port: smtpProfile.port,
+      secure: smtpProfile.secure,
       auth: {
-        user: process.env.SUPPORT_EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
+        user: smtpProfile.user,
+        pass: smtpProfile.password,
       },
+      requireTLS: smtpProfile.provider === "microsoft365",
       tls: {
         rejectUnauthorized: false,
       },
@@ -42,11 +118,20 @@ export const POST = async (request: Request) => {
       connectionTimeout: 60000,
     });
 
+    logContactMail("Verifying SMTP connection", mailContext);
+
+    await transporter.verify();
+
+    logContactMail("SMTP connection verified", mailContext);
+
     const info = await transporter.sendMail({
       from: {
-        name: `${firstName} ${lastName}`,
-        address: email,
+        name: customerName
+          ? `${recipientOption.label} Contact: ${customerName}`
+          : `${recipientOption.label} Contact Form`,
+        address: smtpProfile.user,
       },
+      replyTo: email,
       to: recipientOption.email,
       subject: emailSubject,
       text: message,
@@ -63,9 +148,20 @@ export const POST = async (request: Request) => {
       `,
     });
 
+    logContactMail("Email sent successfully", {
+      ...mailContext,
+      messageId: info.messageId,
+      accepted: info.accepted,
+      rejected: info.rejected,
+      response: info.response,
+    });
+
     return NextResponse.json({ info });
   } catch (error) {
-    console.error("Send mail error:", error);
+    logContactMailError("Send mail failed", error, {
+      nodeEnv: process.env.NODE_ENV,
+    });
+
     return NextResponse.json({ error: "Failed to send mail." }, { status: 500 });
   }
 };

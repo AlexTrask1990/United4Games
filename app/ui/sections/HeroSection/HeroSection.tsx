@@ -7,28 +7,18 @@ import {
   defaultRevealTransition,
   easeOutExpo,
   fadeUp,
-  heroPartnerButtonAnimations,
   heroPartnerButtonIdleState,
-  type HeroPartnerButtonAnimationMode,
+  heroPartnerButtonReaction,
 } from "@/app/lib/motion";
+import { BrandLogo } from "@/app/ui/BrandLogo/BrandLogo";
 import { HeroPartnerButton } from "@/app/ui/sections/HeroSection/HeroPartnerButton";
 import { HeroCharacterLottie } from "@/app/ui/sections/HeroSection/HeroCharacterLottie";
-
-const animationModeOptions = (
-  Object.keys(heroPartnerButtonAnimations) as HeroPartnerButtonAnimationMode[]
-).map((mode) => ({
-  value: mode,
-  label: heroPartnerButtonAnimations[mode].label,
-  description: heroPartnerButtonAnimations[mode].description,
-}));
 
 export const HeroSection = () => {
   const prefersReducedMotion = useReducedMotion();
   const [hookTrigger, setHookTrigger] = useState(0);
   const [isHookPlaying, setIsHookPlaying] = useState(false);
   const [isButtonReacting, setIsButtonReacting] = useState(false);
-  const [buttonAnimationMode, setButtonAnimationMode] =
-    useState<HeroPartnerButtonAnimationMode>("snatch");
 
   const handlePartnerHover = () => {
     if (prefersReducedMotion || isHookPlaying) {
@@ -55,9 +45,6 @@ export const HeroSection = () => {
     setIsHookPlaying(false);
   }, []);
 
-  const partnerButtonReaction =
-    heroPartnerButtonAnimations[buttonAnimationMode];
-
   return (
     <section
       id="hero"
@@ -71,7 +58,7 @@ export const HeroSection = () => {
       <div className="container relative z-10 mx-auto w-11/12 max-w-6xl desktop:max-w-7xl">
         <div className="relative laptop:flex laptop:min-h-[calc(100svh-6rem)] laptop:items-center laptop:py-4">
           <motion.div
-            className="relative z-20 flex flex-col items-center overflow-visible text-center laptop:max-w-[540px] laptop:items-start laptop:text-left"
+            className="relative z-20 flex flex-col items-center overflow-visible pt-[34px] text-center laptop:max-w-[540px] laptop:items-start laptop:pt-[66px] laptop:text-left"
             variants={fadeUp}
             initial={prefersReducedMotion ? "visible" : "hidden"}
             animate="visible"
@@ -83,9 +70,9 @@ export const HeroSection = () => {
               <span />
             </div>
 
-            <p className="font-display text-sm font-semibold uppercase tracking-[0.35em] text-accent-blue">
-              United4Games
-            </p>
+            <div className="[&_img]:h-14 [&_img]:laptop:h-16">
+              <BrandLogo />
+            </div>
 
             <h1
               id="hero-heading"
@@ -100,68 +87,30 @@ export const HeroSection = () => {
               titles for players worldwide.
             </p>
 
-            <div
-              className="mt-6 hidden flex-wrap justify-center gap-2 laptop:flex laptop:justify-start"
-              role="group"
-              aria-label="Partner button animation mode"
-            >
-              {animationModeOptions.map((option) => {
-                const isSelected = buttonAnimationMode === option.value;
-
-                return (
-                  <button
-                    key={option.value}
-                    type="button"
-                    aria-pressed={isSelected}
-                    onClick={() => setButtonAnimationMode(option.value)}
-                    className={`rounded-custom border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition-colors ${
-                      isSelected
-                        ? "border-accent-blue bg-accent-blue/20 text-accent-blue"
-                        : "border-white/25 text-white/70 hover:border-white/45 hover:text-white"
-                    }`}
-                  >
-                    {option.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            <p className="mt-2 hidden text-center text-xs text-white/45 laptop:block laptop:text-left">
-              {heroPartnerButtonAnimations[buttonAnimationMode].description}
-            </p>
-
             <motion.div
               className="relative z-30 mt-6 overflow-visible"
               style={{
-                transformOrigin:
-                  partnerButtonReaction.transformOrigin,
+                transformOrigin: heroPartnerButtonReaction.transformOrigin,
               }}
               animate={
-                isButtonReacting &&
-                !prefersReducedMotion &&
-                !partnerButtonReaction.letterScatter
-                  ? buildHeroPartnerButtonAnimate(partnerButtonReaction)
+                isButtonReacting && !prefersReducedMotion
+                  ? buildHeroPartnerButtonAnimate(heroPartnerButtonReaction)
                   : heroPartnerButtonIdleState
               }
               transition={
-                isButtonReacting &&
-                !prefersReducedMotion &&
-                !partnerButtonReaction.letterScatter
-                  ? partnerButtonReaction.transition
+                isButtonReacting && !prefersReducedMotion
+                  ? heroPartnerButtonReaction.transition
                   : { duration: 0.2, ease: easeOutExpo }
               }
               onAnimationComplete={() => {
-                if (
-                  isButtonReacting &&
-                  !partnerButtonReaction.letterScatter
-                ) {
+                if (isButtonReacting) {
                   handleButtonReactionComplete();
                 }
               }}
             >
               <HeroPartnerButton
                 isReacting={isButtonReacting && !prefersReducedMotion}
-                reaction={partnerButtonReaction}
+                reaction={heroPartnerButtonReaction}
                 onHover={handlePartnerHover}
                 onReactionComplete={handleButtonReactionComplete}
               />

@@ -4,11 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import _ from "lodash";
 import { sectionLinks } from "@/app/lib/links";
-import { BrandLogo } from "@/app/ui/BrandLogo/BrandLogo";
+import { U4GWordmark } from "@/app/ui/BrandLogo/BrandLogo";
 import { MobileMenu } from "@/app/ui/Header/MobileMenu/MobileMenu";
 import {
   United4DigitalLogoLink,
-  United4DigitalNavButton,
 } from "@/app/ui/Header/United4DigitalHeaderLinks";
 import { SectionLink } from "@/app/ui/SectionLink/SectionLink";
 
@@ -64,9 +63,9 @@ export default function Header() {
           <Link
             href="/"
             aria-label="United4Games home"
-            className="hidden transition-opacity hover:opacity-85 laptop:block"
+            className="shrink-0 transition-opacity hover:opacity-85"
           >
-            <BrandLogo />
+            <U4GWordmark />
           </Link>
           <United4DigitalLogoLink />
         </div>
@@ -81,8 +80,6 @@ export default function Header() {
               {link.name}
             </SectionLink>
           ))}
-
-          <United4DigitalNavButton />
         </div>
 
         <MobileMenu onOpenChange={setIsMobileMenuOpen} />

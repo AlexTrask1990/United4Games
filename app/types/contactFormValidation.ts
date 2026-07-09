@@ -3,9 +3,8 @@ import {
   ContactRecipient,
   contactRecipientOptions,
 } from "@/app/lib/contactRecipients";
+import { isRecaptchaEnabled } from "@/app/lib/recaptcha";
 import { ContactFormKeys } from "@/app/types/contactForm";
-
-const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
 const recipientValues = contactRecipientOptions.map(
   (contactRecipient) => contactRecipient.value,
@@ -46,7 +45,7 @@ export const contactFormSchema = yup
       .string()
       .max(500, "Message must be at most 500 characters.")
       .optional(),
-    [ContactFormKeys.RECAPTCHA]: recaptchaSiteKey
+    [ContactFormKeys.RECAPTCHA]: isRecaptchaEnabled
       ? yup
           .string()
           .required("You must confirm that you are not a robot")

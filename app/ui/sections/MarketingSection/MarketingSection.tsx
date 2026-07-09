@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import _ from "lodash";
+import { marketingPartnersParagraphs } from "@/app/lib/marketingPartnersContent";
 import { defaultRevealTransition, fadeUp } from "@/app/lib/motion";
 import { MarketingPartnersLottie } from "@/app/ui/sections/MarketingSection/MarketingPartnersLottie";
 
@@ -25,6 +27,16 @@ export const MarketingSection = () => {
           >
             Marketing &amp; Partners
           </h2>
+          <div className="mt-4 max-w-3xl space-y-4">
+            {_.map(marketingPartnersParagraphs, (paragraph) => (
+              <p
+                key={paragraph}
+                className="text-lg leading-relaxed text-gray-50"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </motion.div>
 
         <motion.div

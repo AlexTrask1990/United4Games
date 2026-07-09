@@ -6,6 +6,11 @@ import { easeOutExpo } from "@/app/lib/motion";
 
 const united4DigitalUrl = externalLinks.united4Digital;
 
+const linkVariants = {
+  rest: {},
+  hover: {},
+};
+
 const logoLetterVariants = {
   rest: { y: 0, opacity: 1 },
   hover: (index: number) => ({
@@ -27,8 +32,9 @@ export const United4DigitalLogoLink = () => {
       href={united4DigitalUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="United4Digital home"
-      className="group flex shrink-0 items-center"
+      aria-label="United4Digital home — agency"
+      className="group relative inline-flex shrink-0"
+      variants={linkVariants}
       initial="rest"
       whileHover={prefersReducedMotion ? undefined : "hover"}
     >
@@ -48,7 +54,13 @@ export const United4DigitalLogoLink = () => {
           </motion.span>
         ))}
       </span>
-      <span className="mt-1 hidden h-0.5 max-w-0 bg-accent-blue transition-all duration-300 group-hover:max-w-full group-focus-visible:max-w-full laptop:block" />
+      <motion.span
+        custom={3}
+        variants={logoLetterVariants}
+        className="pointer-events-none absolute top-full left-5 translate-y-0.5 whitespace-nowrap text-[7px] font-semibold uppercase tracking-[0.16em] text-secondary laptop:left-6 laptop:text-[8px]"
+      >
+        agency
+      </motion.span>
     </motion.a>
   );
 };

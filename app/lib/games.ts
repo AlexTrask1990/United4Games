@@ -1,8 +1,11 @@
+import { hookWarsDescription } from "@/app/lib/ourGamesContent";
+
 export type GameMediaKind = "screenshot" | "video";
 
 export interface GameMedia {
   kind: GameMediaKind;
   src?: string;
+  screenshots?: string[];
   posterSrc?: string;
 }
 
@@ -21,6 +24,7 @@ export interface GameItem {
   storeLinks: GameStoreLinks;
 }
 
+
 const readStoreUrl = (environmentKey: string): string | undefined => {
   const value = process.env[environmentKey]?.trim();
 
@@ -31,12 +35,16 @@ export const games: GameItem[] = [
   {
     id: "hook-wars",
     title: "Hook Wars",
-    description:
-      "Hook Wars is a dynamic mobile PvP game where every hook can change the outcome of a match. Compete with other players, hone your skills, and prove your mastery in intense multiplayer battles.",
+    description: hookWarsDescription,
     genre: "PvP",
     accent: "orange",
     media: {
       kind: "screenshot",
+      screenshots: [
+        "/content/IMAGE1.jpg",
+        "/content/IMAGE2.jpg",
+        "/content/IMAGE3.jpg",
+      ],
     },
     storeLinks: {
       android: readStoreUrl("NEXT_PUBLIC_HOOK_WARS_ANDROID_URL"),

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { GameMedia, gameScreenshotSpecs } from "@/app/lib/games";
+import { GameScreenshotCarousel } from "@/app/ui/sections/OurGamesSection/GameScreenshotCarousel";
 
 interface GameCardMediaProps {
   title: string;
@@ -52,6 +53,15 @@ const GameMediaPlaceholder = ({ media }: { media: GameMedia }) => {
 };
 
 export const GameCardMedia = ({ title, media }: GameCardMediaProps) => {
+  if (media.kind === "screenshot" && media.screenshots?.length) {
+    return (
+      <GameScreenshotCarousel
+        title={title}
+        screenshots={media.screenshots}
+      />
+    );
+  }
+
   if (media.kind === "video" && media.src) {
     return (
       <video

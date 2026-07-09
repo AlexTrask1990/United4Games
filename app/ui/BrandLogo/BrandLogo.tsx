@@ -4,19 +4,24 @@ export const BrandLogo = () => {
   return (
     <>
       <Image
-        src="/content/logo-test2.jpg"
+        src="/content/United4Games_logo.svg"
         alt="United4Games"
-        width={320}
-        height={80}
+        width={914}
+        height={202}
         className="h-10 w-auto object-contain laptop:h-12"
         priority
       />
-      {/* <span className="font-display text-4xl font-black leading-none tracking-tight laptop:text-5xl">
-        <span className="text-white">U</span>
-        <span className="text-secondary">4</span>
-        <span className="text-accent-blue">G</span>
-      </span> */}
     </>
+  );
+};
+
+export const U4GWordmark = () => {
+  return (
+    <span className="font-display text-4xl font-black leading-none tracking-tight laptop:text-4xl">
+      <span className="text-white">U</span>
+      <span className="text-secondary">4</span>
+      <span className="text-accent-blue">G</span>
+    </span>
   );
 };
 

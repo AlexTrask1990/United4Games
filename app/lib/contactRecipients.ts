@@ -22,21 +22,23 @@ const readSupportEmail = (
   return value || fallback;
 };
 
+const defaultSupportEmail = readSupportEmail(
+  "SUPPORT_EMAIL",
+  "support@united4digital.com",
+);
+
 export const contactRecipientOptions: ContactRecipientOption[] = [
   {
     value: ContactRecipient.UNITED4GAMES,
     label: "United4Games",
     shortLabel: "U4G",
-    email: readSupportEmail("SUPPORT_EMAIL_U4G", "support@united4games.com"),
+    email: readSupportEmail("SUPPORT_EMAIL_U4G", defaultSupportEmail),
   },
   {
     value: ContactRecipient.UNITED4DIGITAL,
     label: "United4Digital",
     shortLabel: "U4D",
-    email: readSupportEmail(
-      "SUPPORT_EMAIL_U4D",
-      "support@united4digital.com",
-    ),
+    email: readSupportEmail("SUPPORT_EMAIL_U4D", defaultSupportEmail),
   },
 ];
 

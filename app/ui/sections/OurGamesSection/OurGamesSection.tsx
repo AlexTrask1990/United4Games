@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import _ from "lodash";
 import { games } from "@/app/lib/games";
+import { ourGamesIntro } from "@/app/lib/ourGamesContent";
 import {
   defaultRevealTransition,
   fadeUp,
@@ -32,8 +33,7 @@ export const OurGamesSection = () => {
             Our Games
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-gray-50">
-            Hook Wars is a dynamic mobile PvP game where every hook can change
-            the outcome of a match.
+            {ourGamesIntro}
           </p>
         </motion.div>
 
