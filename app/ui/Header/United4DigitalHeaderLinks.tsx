@@ -32,7 +32,7 @@ export const United4DigitalLogoLink = () => {
       href={united4DigitalUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="United4Digital home — agency"
+      aria-label="United4Digital home — digital agency"
       className="group relative inline-flex shrink-0"
       variants={linkVariants}
       initial="rest"
@@ -57,9 +57,9 @@ export const United4DigitalLogoLink = () => {
       <motion.span
         custom={3}
         variants={logoLetterVariants}
-        className="pointer-events-none absolute top-full left-5 translate-y-0.5 whitespace-nowrap text-[7px] font-semibold uppercase tracking-[0.16em] text-secondary laptop:left-6 laptop:text-[8px]"
+        className="pointer-events-none absolute top-full left-[108%] -translate-x-1/2 translate-y-0.5 whitespace-nowrap text-[7px] font-semibold uppercase tracking-[0.16em] text-secondary laptop:left-[110%] laptop:text-[8px]"
       >
-        agency
+        digital agency
       </motion.span>
     </motion.a>
   );

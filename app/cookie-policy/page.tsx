@@ -15,7 +15,7 @@ export default function CookiePolicyPage() {
     <>
       <Header />
       <main className="grow bg-base-100 px-6 py-24 pt-40">
-        <div className="container mx-auto max-w-3xl">
+        <div className="container mx-auto w-11/12 max-w-6xl">
           <h1 className="font-display text-4xl font-bold text-primary">
             Cookie Policy
           </h1>

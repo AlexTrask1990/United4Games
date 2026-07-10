@@ -1,5 +1,3 @@
-import { hookWarsDescription } from "@/app/lib/ourGamesContent";
-
 export type GameMediaKind = "screenshot" | "video";
 
 export interface GameMedia {
@@ -17,13 +15,11 @@ export interface GameStoreLinks {
 export interface GameItem {
   id: string;
   title: string;
-  description: string;
   genre: string;
   accent: "red" | "orange" | "blue";
   media: GameMedia;
   storeLinks: GameStoreLinks;
 }
-
 
 const readStoreUrl = (environmentKey: string): string | undefined => {
   const value = process.env[environmentKey]?.trim();
@@ -35,7 +31,6 @@ export const games: GameItem[] = [
   {
     id: "hook-wars",
     title: "Hook Wars",
-    description: hookWarsDescription,
     genre: "PvP",
     accent: "orange",
     media: {

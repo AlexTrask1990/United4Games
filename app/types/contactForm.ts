@@ -12,8 +12,7 @@ export enum ContactFormKeys {
   RECAPTCHA = "recaptcha",
 }
 
-export type ContactFormData = {
-  [ContactFormKeys.RECIPIENT]: ContactRecipientValue;
+export type ContactFormFields = {
   [ContactFormKeys.FIRST_NAME]: string;
   [ContactFormKeys.LAST_NAME]: string;
   [ContactFormKeys.EMAIL]: string;
@@ -22,4 +21,8 @@ export type ContactFormData = {
   [ContactFormKeys.SUBJECT]?: string;
   [ContactFormKeys.MESSAGE]?: string;
   [ContactFormKeys.RECAPTCHA]?: string;
+};
+
+export type ContactFormData = ContactFormFields & {
+  [ContactFormKeys.RECIPIENT]: ContactRecipientValue;
 };

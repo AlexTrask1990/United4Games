@@ -1,16 +1,12 @@
 "use client";
 
-import { Controller, Control, FieldErrors } from "react-hook-form";
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   contactRecipientOptions,
   ContactRecipient,
 } from "@/app/lib/contactRecipients";
-import { ContactFormData, ContactFormKeys } from "@/app/types/contactForm";
-
-interface ContactRecipientFieldProps {
-  control: Control<ContactFormData>;
-  errors: FieldErrors<ContactFormData>;
-}
+import { easeOutExpo } from "@/app/lib/motion";
 
 const recipientWordmarks: Record<
   string,
@@ -28,65 +24,72 @@ const recipientWordmarks: Record<
   ],
 };
 
-export const ContactRecipientField = ({
-  control,
-  errors,
-}: ContactRecipientFieldProps) => {
+const decorativeTags: Record<string, string> = {
+  [ContactRecipient.UNITED4GAMES]: "Game studio",
+  [ContactRecipient.UNITED4DIGITAL]: "digital agency",
+};
+
+const cardBounceVariants = {
+  rest: { scale: 1 },
+  active: {
+    scale: [1, 1.02, 1],
+    transition: { duration: 0.3, ease: easeOutExpo },
+  },
+};
+
+export const ContactRecipientField = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const [activeCard, setActiveCard] = useState<string>(
+    ContactRecipient.UNITED4GAMES,
+  );
+
   return (
     <fieldset className="form-field">
-      <legend className="form-label">
-        Write to<span className="text-accent-red">*</span>
-      </legend>
+      <legend className="form-label">Write to</legend>
 
-      <Controller
-        name={ContactFormKeys.RECIPIENT}
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { value, onChange } }) => (
-          <div
-            className="grid grid-cols-1 gap-3 tablet:grid-cols-2"
-            role="radiogroup"
-            aria-label="Choose United4Games or United4Digital"
-          >
-            {contactRecipientOptions.map((contactRecipient) => {
-              const isSelected = value === contactRecipient.value;
-              const wordmark = recipientWordmarks[contactRecipient.value];
+      <div
+        className="grid grid-cols-1 gap-3 tablet:grid-cols-2"
+        role="group"
+        aria-label="Brand selection"
+      >
+        {contactRecipientOptions.map((contactRecipient) => {
+          const isActive = activeCard === contactRecipient.value;
+          const wordmark = recipientWordmarks[contactRecipient.value];
+          const decorativeTag = decorativeTags[contactRecipient.value];
 
-              return (
-                <button
-                  key={contactRecipient.value}
-                  type="button"
-                  role="radio"
-                  aria-checked={isSelected}
-                  onClick={() => {
-                    onChange(contactRecipient.value);
-                  }}
-                  className={`rounded-custom border px-4 py-3 text-left transition-all ${
-                    isSelected
-                      ? "border-secondary bg-secondary/10 shadow-[0_0_0_1px_rgba(255,104,57,0.35)]"
-                      : "border-primary/15 bg-white hover:border-accent-blue/60 hover:bg-accent-blue/5"
-                  }`}
-                >
-                  <span className="font-display text-2xl font-black leading-none tracking-tight">
-                    {wordmark.map((letter) => (
-                      <span key={letter.char} className={letter.className}>
-                        {letter.char}
-                      </span>
-                    ))}
+          return (
+            <motion.button
+              key={contactRecipient.value}
+              type="button"
+              aria-pressed={isActive}
+              variants={cardBounceVariants}
+              animate={isActive && !prefersReducedMotion ? "active" : "rest"}
+              onClick={() => {
+                setActiveCard(contactRecipient.value);
+              }}
+              className={`rounded-custom border px-4 py-3 text-left transition-all ${
+                isActive
+                  ? "border-secondary bg-secondary/10 shadow-[0_0_0_1px_rgba(255,104,57,0.35)]"
+                  : "border-primary/15 bg-white hover:border-accent-blue/60 hover:bg-accent-blue/5"
+              }`}
+            >
+              <span className="font-display text-2xl font-black leading-none tracking-tight">
+                {wordmark.map((letter) => (
+                  <span key={letter.char} className={letter.className}>
+                    {letter.char}
                   </span>
-                  <span className="mt-1 block text-sm font-medium text-gray-50">
-                    {contactRecipient.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-      />
-
-      {errors.recipient && (
-        <p className="form-error">{errors.recipient.message}</p>
-      )}
+                ))}
+              </span>
+              <span className="mt-1 block text-sm font-medium text-gray-50">
+                {contactRecipient.label}
+              </span>
+              <span className="mt-2 block text-[10px] font-semibold uppercase tracking-[0.16em] text-secondary">
+                {decorativeTag}
+              </span>
+            </motion.button>
+          );
+        })}
+      </div>
     </fieldset>
   );
 };

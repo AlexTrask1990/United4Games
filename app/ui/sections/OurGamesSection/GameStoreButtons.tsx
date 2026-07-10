@@ -1,64 +1,71 @@
-import { GameStoreLinks, gameAccentStyles } from "@/app/lib/games";
+import { GameStoreLinks } from "@/app/lib/games";
 
 interface GameStoreButtonsProps {
   storeLinks: GameStoreLinks;
-  accent: keyof typeof gameAccentStyles;
   gameTitle: string;
 }
 
-interface StoreButtonConfig {
+interface StoreBadgeConfig {
   platform: "android" | "ios";
   label: string;
   href?: string;
+  badgeSrc: string;
 }
 
 export const GameStoreButtons = ({
   storeLinks,
-  accent,
   gameTitle,
 }: GameStoreButtonsProps) => {
-  const accentStyles = gameAccentStyles[accent];
-
-  const storeButtons: StoreButtonConfig[] = [
+  const storeBadges: StoreBadgeConfig[] = [
     {
       platform: "android",
-      label: "Play on Android",
+      label: "Get it on Google Play",
       href: storeLinks.android,
+      badgeSrc: "/content/store-badges/google-play.png",
     },
     {
       platform: "ios",
-      label: "Play on iOS",
+      label: "Download on the App Store",
       href: storeLinks.ios,
+      badgeSrc: "/content/store-badges/app-store.svg",
     },
   ];
 
   return (
-    <div className="mt-6 flex flex-col gap-3 tablet:flex-row tablet:flex-wrap">
-      {storeButtons.map((storeButton) => {
-        const sharedClassName = `inline-flex items-center justify-center rounded-custom px-5 py-2.5 text-sm font-bold transition-colors ${accentStyles.button} text-white`;
+    <div className="flex flex-wrap items-center justify-center gap-3">
+      {storeBadges.map((storeBadge) => {
+        const badgeImage = (
+          // Official store badges — keep intrinsic aspect ratio
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={storeBadge.badgeSrc}
+            alt={storeBadge.label}
+            className="h-11 w-auto object-contain"
+          />
+        );
 
-        if (storeButton.href) {
+        if (storeBadge.href) {
           return (
             <a
-              key={storeButton.platform}
-              href={storeButton.href}
+              key={storeBadge.platform}
+              href={storeBadge.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${storeButton.label} — ${gameTitle}`}
-              className={`${sharedClassName} hover:opacity-90`}
+              aria-label={`${storeBadge.label} — ${gameTitle}`}
+              className="transition-opacity hover:opacity-90"
             >
-              {storeButton.label}
+              {badgeImage}
             </a>
           );
         }
 
         return (
           <span
-            key={storeButton.platform}
+            key={storeBadge.platform}
             aria-disabled="true"
-            className={`${sharedClassName} cursor-default opacity-60`}
+            className="cursor-default opacity-50"
           >
-            {storeButton.label}
+            {badgeImage}
           </span>
         );
       })}

@@ -6,7 +6,7 @@ import { Controller, Resolver, SubmitHandler, useForm } from "react-hook-form";
 import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ContactFormData, ContactFormKeys } from "@/app/types/contactForm";
+import { ContactFormFields, ContactFormKeys } from "@/app/types/contactForm";
 import { contactFormSchema } from "@/app/types/contactFormValidation";
 import {
   hasRecaptchaSiteKey,
@@ -39,22 +39,21 @@ export const ContactForm = () => {
     control,
     reset,
     formState: { errors },
-  } = useForm<ContactFormData>({
-    resolver: yupResolver(contactFormSchema) as Resolver<ContactFormData>,
-    defaultValues: {
-      [ContactFormKeys.RECIPIENT]: defaultContactRecipient,
-    },
+  } = useForm<ContactFormFields>({
+    resolver: yupResolver(contactFormSchema) as Resolver<ContactFormFields>,
   });
 
-  const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
+  const onSubmit: SubmitHandler<ContactFormFields> = async (data) => {
     setIsLoading(true);
 
-    const isSent = await sendContactMail(data);
+    const isSent = await sendContactMail({
+      ...data,
+      recipient: defaultContactRecipient,
+    });
 
     if (isSent) {
       setSuccess(true);
       reset({
-        [ContactFormKeys.RECIPIENT]: defaultContactRecipient,
         firstName: "",
         lastName: "",
         email: "",
@@ -77,7 +76,7 @@ export const ContactForm = () => {
   return (
     <div className="relative w-full rounded-custom border border-primary/10 bg-white p-4 shadow-sm laptop:p-6">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ContactRecipientField control={control} errors={errors} />
+        <ContactRecipientField />
 
         <div className="laptop:flex laptop:justify-between laptop:gap-4">
           <label className="form-field relative w-full laptop:min-w-[300px]">

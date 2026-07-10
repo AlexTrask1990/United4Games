@@ -24,8 +24,38 @@ export const staggerGrid: Variants = {
   },
 };
 
+export const staggerGameCards: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.18,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+export const gameCardReveal: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 56,
+    rotateX: 12,
+    scale: 0.97,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    scale: 1,
+  },
+};
+
 export const defaultRevealTransition: Transition = {
   duration: 0.55,
+  ease: easeOutExpo,
+};
+
+export const gameCardRevealTransition: Transition = {
+  duration: 0.7,
   ease: easeOutExpo,
 };
 
