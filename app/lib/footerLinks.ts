@@ -25,4 +25,4 @@ export const footerContactLink: FooterLink = {
 };
 
 export const footerCopyright =
-  "© 2026 United4Games Ltd. Part of United4Digital Ltd. All rights reserved.";
+  "© 2026 United4Games studio — part of United4Digital Ltd. All rights reserved.";
