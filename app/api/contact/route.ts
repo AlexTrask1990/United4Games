@@ -6,10 +6,6 @@ import {
   getContactRecipientOption,
   isContactRecipientValue,
 } from "@/app/lib/contactRecipients";
-import {
-  getSmtpProfile,
-  getSmtpProfileForLogging,
-} from "@/app/lib/smtpConfig";
 
 const logContactMail = (
   message: string,
@@ -68,7 +64,9 @@ export const POST = async (request: Request) => {
       ? recipient
       : defaultContactRecipient;
     const recipientOption = getContactRecipientOption(recipientValue);
-    const smtpProfile = getSmtpProfile();
+    const senderAddress =
+      process.env.SUPPORT_EMAIL?.trim() ?? "support@united4digital.com";
+    const emailPassword = process.env.EMAIL_PASSWORD?.trim() ?? "";
     const emailSubject = subject.trim()
       ? `[${recipientOption.label}] ${subject.trim()}`
       : `[${recipientOption.label}] Contact form message`;
@@ -79,17 +77,22 @@ export const POST = async (request: Request) => {
       recipientLabel: recipientOption.label,
       to: recipientOption.email,
       fromName: customerName,
-      fromAddress: email,
-      senderAddress: smtpProfile.user,
+      senderAddress,
       replyToAddress: email,
       subject: emailSubject,
-      smtp: getSmtpProfileForLogging(smtpProfile),
+      smtp: {
+        host: "smtp.office365.com",
+        port: 587,
+        secure: false,
+        user: senderAddress,
+        hasPassword: Boolean(emailPassword),
+      },
       nodeEnv: process.env.NODE_ENV,
     };
 
     logContactMail("Preparing contact form email", mailContext);
 
-    if (!smtpProfile.user || !smtpProfile.password) {
+    if (!senderAddress || !emailPassword) {
       logContactMailError(
         "SMTP credentials are missing",
         new Error("SMTP credentials are missing"),
@@ -103,14 +106,14 @@ export const POST = async (request: Request) => {
     }
 
     const transporter = nodemailer.createTransport({
-      host: smtpProfile.host,
-      port: smtpProfile.port,
-      secure: smtpProfile.secure,
+      host: "smtp.office365.com",
+      port: 587,
+      secure: false,
       auth: {
-        user: smtpProfile.user,
-        pass: smtpProfile.password,
+        user: senderAddress,
+        pass: emailPassword,
       },
-      requireTLS: smtpProfile.provider === "microsoft365",
+      requireTLS: true,
       tls: {
         rejectUnauthorized: false,
       },
@@ -129,7 +132,7 @@ export const POST = async (request: Request) => {
         name: customerName
           ? `${recipientOption.label} Contact: ${customerName}`
           : `${recipientOption.label} Contact Form`,
-        address: smtpProfile.user,
+        address: senderAddress,
       },
       replyTo: email,
       to: recipientOption.email,
