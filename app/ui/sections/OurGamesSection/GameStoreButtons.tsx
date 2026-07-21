@@ -1,4 +1,4 @@
-import { GameStoreLinks } from "@/app/lib/games";
+import { type GameStoreLinks } from "@/app/lib/games";
 
 interface GameStoreButtonsProps {
   storeLinks: GameStoreLinks;

@@ -12,6 +12,9 @@ export interface GameStoreLinks {
   ios?: string;
 }
 
+export const hookWarsGooglePlayUrl =
+  "https://play.google.com/store/apps/details?id=com.united4digital.u4g.hookwars";
+
 export interface GameItem {
   id: string;
   title: string;
@@ -20,12 +23,6 @@ export interface GameItem {
   media: GameMedia;
   storeLinks: GameStoreLinks;
 }
-
-const readStoreUrl = (environmentKey: string): string | undefined => {
-  const value = process.env[environmentKey]?.trim();
-
-  return value || undefined;
-};
 
 export const games: GameItem[] = [
   {
@@ -42,8 +39,7 @@ export const games: GameItem[] = [
       ],
     },
     storeLinks: {
-      android: readStoreUrl("NEXT_PUBLIC_HOOK_WARS_ANDROID_URL"),
-      ios: readStoreUrl("NEXT_PUBLIC_HOOK_WARS_IOS_URL"),
+      android: hookWarsGooglePlayUrl,
     },
   },
 ];
