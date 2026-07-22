@@ -32,7 +32,7 @@ export const GameStoreButtons = ({
   ];
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3">
+    <div className="flex flex-wrap items-center justify-center gap-4">
       {storeBadges.map((storeBadge) => {
         const badgeImage = (
           // Official store badges — keep intrinsic aspect ratio
@@ -40,7 +40,7 @@ export const GameStoreButtons = ({
           <img
             src={storeBadge.badgeSrc}
             alt={storeBadge.label}
-            className="h-11 w-auto object-contain"
+            className="h-14 w-auto object-contain laptop:h-16"
           />
         );
 
