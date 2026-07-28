@@ -298,24 +298,42 @@ body {
   aspect-ratio: 12 / 7;
 }
 
-.hero-mobile-stage {
+/*
+  Mobile/tablet: stage sized by the character.
+  Button Y is a fraction of character height so the hook always hits.
+*/
+.hero-hook-pair {
+  --hero-character-width: clamp(340px, 98vw, 460px);
+  --hero-character-height: calc(var(--hero-character-width) * 7 / 12);
   position: relative;
-  width: clamp(280px, 84vw, 360px);
-  aspect-ratio: 1600 / 2000;
+  width: 100%;
+  max-width: calc(var(--hero-character-width) + 5rem);
+  height: var(--hero-character-height);
   margin-inline: auto;
 }
 
-.hero-mobile-stage__character {
-  width: 100%;
-  height: 100%;
+.hero-hook-pair-button {
+  position: absolute;
+  left: 0;
+  z-index: 10;
+  /* Hook impact line — scales with character; lower = larger fraction */
+  top: calc(var(--hero-character-height) * 0.82);
+  transform: translateY(-50%);
 }
 
-.hero-mobile-stage__button {
+.hero-hook-pair-character {
   position: absolute;
-  left: 50%;
-  bottom: 11%;
-  z-index: 30;
-  translate: -50% 0;
+  right: -10%;
+  bottom: 0;
+  z-index: 1;
+  width: var(--hero-character-width);
+  pointer-events: none;
+}
+
+.hero-hook-pair-lottie {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 12 / 7;
 }
 
 .marketing-partners-lottie {

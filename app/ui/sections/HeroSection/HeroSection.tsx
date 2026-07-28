@@ -14,39 +14,35 @@ import { useHeroMobileScrollHook } from "@/app/lib/hooks/useHeroMobileScrollHook
 import { BrandLogo } from "@/app/ui/BrandLogo/BrandLogo";
 import { HeroPartnerButton } from "@/app/ui/sections/HeroSection/HeroPartnerButton";
 import { HeroCharacterLottie } from "@/app/ui/sections/HeroSection/HeroCharacterLottie";
-import { HeroMobileCharacterLottie } from "@/app/ui/sections/HeroSection/HeroMobileCharacterLottie";
 
 export const HeroSection = () => {
   const prefersReducedMotion = useReducedMotion();
   const [hookTrigger, setHookTrigger] = useState(0);
   const [isHookPlaying, setIsHookPlaying] = useState(false);
-  const [mobileHookTrigger, setMobileHookTrigger] = useState(0);
-  const [isMobileHookPlaying, setIsMobileHookPlaying] = useState(false);
   const [isButtonReacting, setIsButtonReacting] = useState(false);
 
-  const triggerMobileHook = useCallback(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    setIsMobileHookPlaying(true);
-    setMobileHookTrigger((currentTrigger) => currentTrigger + 1);
-  }, [prefersReducedMotion]);
-
-  useHeroMobileScrollHook({
-    enabled: true,
-    prefersReducedMotion,
-    isHookPlaying: isMobileHookPlaying,
-    onScrollHook: triggerMobileHook,
-  });
-
-  const handlePartnerHover = () => {
+  const triggerHook = useCallback(() => {
     if (prefersReducedMotion || isHookPlaying) {
       return;
     }
 
     setIsHookPlaying(true);
     setHookTrigger((currentTrigger) => currentTrigger + 1);
+  }, [isHookPlaying, prefersReducedMotion]);
+
+  useHeroMobileScrollHook({
+    enabled: true,
+    prefersReducedMotion,
+    isHookPlaying,
+    onScrollHook: triggerHook,
+  });
+
+  const handlePartnerHover = () => {
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
+      return;
+    }
+
+    triggerHook();
   };
 
   const handleHookImpact = useCallback(() => {
@@ -65,9 +61,36 @@ export const HeroSection = () => {
     setIsHookPlaying(false);
   }, []);
 
-  const handleMobileHookComplete = useCallback(() => {
-    setIsMobileHookPlaying(false);
-  }, []);
+  const renderPartnerButton = (onHover: () => void) => (
+    <motion.div
+      className="relative z-30 overflow-visible"
+      style={{
+        transformOrigin: heroPartnerButtonReaction.transformOrigin,
+      }}
+      animate={
+        isButtonReacting && !prefersReducedMotion
+          ? buildHeroPartnerButtonAnimate(heroPartnerButtonReaction)
+          : heroPartnerButtonIdleState
+      }
+      transition={
+        isButtonReacting && !prefersReducedMotion
+          ? heroPartnerButtonReaction.transition
+          : { duration: 0.2, ease: easeOutExpo }
+      }
+      onAnimationComplete={() => {
+        if (isButtonReacting) {
+          handleButtonReactionComplete();
+        }
+      }}
+    >
+      <HeroPartnerButton
+        isReacting={isButtonReacting && !prefersReducedMotion}
+        reaction={heroPartnerButtonReaction}
+        onHover={onHover}
+        onReactionComplete={handleButtonReactionComplete}
+      />
+    </motion.div>
+  );
 
   return (
     <section
@@ -80,7 +103,7 @@ export const HeroSection = () => {
       <div className="hero-glow hero-glow-blue" aria-hidden="true" />
 
       <div className="container relative z-10 mx-auto w-11/12 max-w-6xl desktop:max-w-7xl">
-        <div className="relative laptop:flex laptop:min-h-[calc(100svh-6rem)] laptop:items-center laptop:py-4">
+        <div className="relative min-h-[calc(100svh-6rem)] py-4 laptop:flex laptop:items-center">
           <motion.div
             className="relative z-20 flex flex-col items-center overflow-visible pt-8.5 text-center laptop:max-w-135 laptop:items-start laptop:pt-16.5 laptop:text-left"
             variants={fadeUp}
@@ -111,92 +134,42 @@ export const HeroSection = () => {
               titles for players worldwide.
             </p>
 
-            <motion.div
-              className="hero-mobile-stage mt-6 laptop:hidden"
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.65, ease: easeOutExpo }}
-            >
-              <HeroMobileCharacterLottie
-                hookTrigger={mobileHookTrigger}
-                onHookImpact={handleHookImpact}
-                onHookComplete={handleMobileHookComplete}
-                className="hero-mobile-stage__character"
-              />
-
-              <motion.div
-                className="hero-mobile-stage__button overflow-visible"
-                style={{
-                  transformOrigin: heroPartnerButtonReaction.transformOrigin,
-                }}
-                animate={
-                  isButtonReacting && !prefersReducedMotion
-                    ? buildHeroPartnerButtonAnimate(heroPartnerButtonReaction)
-                    : heroPartnerButtonIdleState
-                }
-                transition={
-                  isButtonReacting && !prefersReducedMotion
-                    ? heroPartnerButtonReaction.transition
-                    : { duration: 0.2, ease: easeOutExpo }
-                }
-                onAnimationComplete={() => {
-                  if (isButtonReacting) {
-                    handleButtonReactionComplete();
-                  }
-                }}
-              >
-                <HeroPartnerButton
-                  isReacting={isButtonReacting && !prefersReducedMotion}
-                  reaction={heroPartnerButtonReaction}
-                  onHover={() => {}}
-                  onReactionComplete={handleButtonReactionComplete}
+            {/* Mobile/tablet: button locked to character so the hook always hits */}
+            <div className="hero-hook-pair mt-8 w-full laptop:hidden">
+              <div className="hero-hook-pair-button">
+                {renderPartnerButton(() => {})}
+              </div>
+              <div className="hero-hook-pair-character" aria-hidden="true">
+                <HeroCharacterLottie
+                  hookTrigger={hookTrigger}
+                  onHookImpact={handleHookImpact}
+                  onHookComplete={handleHookComplete}
+                  className="hero-hook-pair-lottie"
                 />
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
+            {/* Desktop button */}
+            <div className="mt-6 hidden laptop:block">
+              {renderPartnerButton(handlePartnerHover)}
+            </div>
+          </motion.div>
+
+          {/* Desktop character — hide wrapper is not motion (avoids display override) */}
+          <div className="pointer-events-none absolute inset-y-0 right-[-2%] hidden items-center justify-end laptop:flex desktop:right-0">
             <motion.div
-              className="relative z-30 mt-6 hidden overflow-visible laptop:block"
-              style={{
-                transformOrigin: heroPartnerButtonReaction.transformOrigin,
-              }}
-              animate={
-                isButtonReacting && !prefersReducedMotion
-                  ? buildHeroPartnerButtonAnimate(heroPartnerButtonReaction)
-                  : heroPartnerButtonIdleState
-              }
-              transition={
-                isButtonReacting && !prefersReducedMotion
-                  ? heroPartnerButtonReaction.transition
-                  : { duration: 0.2, ease: easeOutExpo }
-              }
-              onAnimationComplete={() => {
-                if (isButtonReacting) {
-                  handleButtonReactionComplete();
-                }
-              }}
+              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.15, duration: 0.65, ease: easeOutExpo }}
             >
-              <HeroPartnerButton
-                isReacting={isButtonReacting && !prefersReducedMotion}
-                reaction={heroPartnerButtonReaction}
-                onHover={handlePartnerHover}
-                onReactionComplete={handleButtonReactionComplete}
+              <HeroCharacterLottie
+                hookTrigger={hookTrigger}
+                onHookImpact={handleHookImpact}
+                onHookComplete={handleHookComplete}
+                className="hero-character-size"
               />
             </motion.div>
-          </motion.div>
-
-          <motion.div
-            className="relative mx-auto mt-10 hidden w-full justify-center laptop:pointer-events-none laptop:absolute laptop:inset-y-0 laptop:right-[-2%] laptop:mt-0 laptop:flex laptop:items-center laptop:justify-end desktop:right-0"
-            initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.15, duration: 0.65, ease: easeOutExpo }}
-          >
-            <HeroCharacterLottie
-              hookTrigger={hookTrigger}
-              onHookImpact={handleHookImpact}
-              onHookComplete={handleHookComplete}
-              className="hero-character-size"
-            />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

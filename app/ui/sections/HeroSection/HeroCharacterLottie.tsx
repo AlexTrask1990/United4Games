@@ -25,7 +25,6 @@ export const HeroCharacterLottie = ({
   const prefersReducedMotion = useReducedMotion();
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [animationMode, setAnimationMode] = useState<"idle" | "hook">("idle");
-  const [alignHookLeft, setAlignHookLeft] = useState(false);
   const isHookPlayingRef = useRef(false);
   const hasHookImpactFiredRef = useRef(false);
   const onHookImpactRef = useRef(onHookImpact);
@@ -33,21 +32,6 @@ export const HeroCharacterLottie = ({
   useEffect(() => {
     onHookImpactRef.current = onHookImpact;
   }, [onHookImpact]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
-
-    const updateAlignment = () => {
-      setAlignHookLeft(mediaQuery.matches);
-    };
-
-    updateAlignment();
-    mediaQuery.addEventListener("change", updateAlignment);
-
-    return () => {
-      mediaQuery.removeEventListener("change", updateAlignment);
-    };
-  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion || hookTrigger === 0 || isHookPlayingRef.current) {
@@ -122,9 +106,7 @@ export const HeroCharacterLottie = ({
             autoplay={false}
             className={lottieClassName}
             rendererSettings={{
-              preserveAspectRatio: alignHookLeft
-                ? "xMaxYMid meet"
-                : "xMidYMid meet",
+              preserveAspectRatio: "xMaxYMid meet",
             }}
           />
         </div>
@@ -146,9 +128,7 @@ export const HeroCharacterLottie = ({
           onComplete={isIdle ? undefined : handleHookComplete}
           className={lottieClassName}
           rendererSettings={{
-            preserveAspectRatio: alignHookLeft
-              ? "xMaxYMid meet"
-              : "xMidYMid meet",
+            preserveAspectRatio: "xMaxYMid meet",
           }}
         />
       </div>
