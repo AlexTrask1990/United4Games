@@ -317,7 +317,7 @@ body {
   left: 0;
   z-index: 10;
   /* Hook impact line — scales with character; lower = larger fraction */
-  top: calc(var(--hero-character-height) * 0.82);
+  top: calc(var(--hero-character-height) * 0.82 - 35px);
   transform: translateY(-50%);
 }
 
@@ -328,6 +328,13 @@ body {
   z-index: 1;
   width: var(--hero-character-width);
   pointer-events: none;
+}
+
+/* Mobile layout only (< laptop) — desktop character untouched */
+@media (max-width: 1023px) {
+  .hero-hook-pair-character {
+    right: calc(-10% - 15px);
+  }
 }
 
 .hero-hook-pair-lottie {
