@@ -1,2 +1,6 @@
+United4digital Ltd
+OWNERDOMAIN=united4digital.com
+INVENTORYPARTNERDOMAIN=united4digital.com
+
 # Authorized Digital Sellers for united4games.com
 # Replace with actual seller records when inventory is ready. 2
