@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { readAdsFileConfig } from "@/app/lib/adsFiles/storage";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const GET = async () => {
   const config = await readAdsFileConfig("ads");
@@ -10,7 +12,8 @@ export const GET = async () => {
     status: 200,
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=60",
+      "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      Pragma: "no-cache",
     },
   });
 };
