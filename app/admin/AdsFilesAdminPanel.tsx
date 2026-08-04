@@ -51,13 +51,19 @@ export const AdsFilesAdminPanel = ({
         },
       );
 
+      const payload = (await response.json()) as
+        | (AdsFileConfig & { file: AdsFileId })
+        | { error?: string };
+
       if (!response.ok) {
-        throw new Error("Failed to load file.");
+        throw new Error(
+          "error" in payload && payload.error
+            ? payload.error
+            : "Failed to load file.",
+        );
       }
 
-      const config = (await response.json()) as AdsFileConfig & {
-        file: AdsFileId;
-      };
+      const config = payload as AdsFileConfig & { file: AdsFileId };
 
       setContent(config.content);
       setUpdatedAt(config.updatedAt);
@@ -102,13 +108,19 @@ export const AdsFilesAdminPanel = ({
         }),
       });
 
+      const payload = (await response.json()) as
+        | (AdsFileConfig & { file: AdsFileId })
+        | { error?: string };
+
       if (!response.ok) {
-        throw new Error("Failed to save configuration.");
+        throw new Error(
+          "error" in payload && payload.error
+            ? payload.error
+            : "Failed to save configuration.",
+        );
       }
 
-      const config = (await response.json()) as AdsFileConfig & {
-        file: AdsFileId;
-      };
+      const config = payload as AdsFileConfig & { file: AdsFileId };
 
       const elapsedMs = Date.now() - saveStartedAt;
       const remainingLockMs = Math.max(0, SAVE_LOCK_DURATION_MS - elapsedMs);

@@ -48,12 +48,22 @@ export const GET = async (request: NextRequest) => {
     );
   }
 
-  const config = await readAdsFileConfig(fileId);
+  try {
+    const config = await readAdsFileConfig(fileId);
 
-  return NextResponse.json({
-    file: fileId,
-    ...config,
-  });
+    return NextResponse.json({
+      file: fileId,
+      ...config,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error:
+          error instanceof Error ? error.message : "Failed to load configuration.",
+      },
+      { status: 500 },
+    );
+  }
 };
 
 export const PUT = async (request: NextRequest) => {
@@ -75,12 +85,22 @@ export const PUT = async (request: NextRequest) => {
     );
   }
 
-  const config = await writeAdsFileConfig(fileId, {
-    content: typeof body.content === "string" ? body.content : "",
-  });
+  try {
+    const config = await writeAdsFileConfig(fileId, {
+      content: typeof body.content === "string" ? body.content : "",
+    });
 
-  return NextResponse.json({
-    file: fileId,
-    ...config,
-  });
+    return NextResponse.json({
+      file: fileId,
+      ...config,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error:
+          error instanceof Error ? error.message : "Failed to save configuration.",
+      },
+      { status: 500 },
+    );
+  }
 };
