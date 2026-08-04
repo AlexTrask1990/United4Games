@@ -1,3 +1,0 @@
-#United4digital Ltd
-OWNERDOMAIN=united4digital.com
-INVENTORYPARTNERDOMAIN=united4digital.com

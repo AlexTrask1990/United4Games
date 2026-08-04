@@ -4,7 +4,7 @@ import { readAdsFileConfig } from "@/app/lib/adsFiles/storage";
 export const runtime = "nodejs";
 
 export const GET = async () => {
-  const config = await readAdsFileConfig("app-ads");
+  const config = await readAdsFileConfig("ads");
 
   return new NextResponse(config.content, {
     status: 200,

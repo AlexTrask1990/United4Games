@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  isAppAdsPubliclyAvailable,
-  readAppAdsConfig,
-  writeAppAdsConfig,
-} from "@/app/lib/appAds/storage";
+  readAdsFileConfig,
+  writeAdsFileConfig,
+} from "@/app/lib/adsFiles/storage";
+import { isAdsFileId } from "@/app/lib/adsFiles/types";
 
 const getAdminSecret = (): string | undefined => {
   return process.env.APP_ADS_ADMIN_SECRET?.trim();
@@ -24,6 +24,14 @@ const isAuthorized = (request: NextRequest): boolean => {
   return bearerToken === adminSecret;
 };
 
+const resolveFileId = (value: unknown) => {
+  if (!isAdsFileId(value)) {
+    return null;
+  }
+
+  return value;
+};
+
 export const runtime = "nodejs";
 
 export const GET = async (request: NextRequest) => {
@@ -31,9 +39,21 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const config = await readAppAdsConfig();
+  const fileId = resolveFileId(request.nextUrl.searchParams.get("file"));
 
-  return NextResponse.json(config);
+  if (!fileId) {
+    return NextResponse.json(
+      { error: 'Query param "file" must be "ads" or "app-ads".' },
+      { status: 400 },
+    );
+  }
+
+  const config = await readAdsFileConfig(fileId);
+
+  return NextResponse.json({
+    file: fileId,
+    ...config,
+  });
 };
 
 export const PUT = async (request: NextRequest) => {
@@ -42,14 +62,25 @@ export const PUT = async (request: NextRequest) => {
   }
 
   const body = (await request.json()) as {
-    isVisible?: boolean;
+    file?: unknown;
     content?: string;
   };
 
-  const config = await writeAppAdsConfig({
-    isVisible: Boolean(body.isVisible),
+  const fileId = resolveFileId(body.file);
+
+  if (!fileId) {
+    return NextResponse.json(
+      { error: 'Body field "file" must be "ads" or "app-ads".' },
+      { status: 400 },
+    );
+  }
+
+  const config = await writeAdsFileConfig(fileId, {
     content: typeof body.content === "string" ? body.content : "",
   });
 
-  return NextResponse.json(config);
+  return NextResponse.json({
+    file: fileId,
+    ...config,
+  });
 };
