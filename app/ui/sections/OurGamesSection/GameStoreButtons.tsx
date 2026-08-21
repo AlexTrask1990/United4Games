@@ -12,6 +12,9 @@ interface StoreBadgeConfig {
   badgeSrc: string;
 }
 
+const STORE_BADGE_WIDTH = 564;
+const STORE_BADGE_HEIGHT = 168;
+
 export const GameStoreButtons = ({
   storeLinks,
   gameTitle,
@@ -27,20 +30,26 @@ export const GameStoreButtons = ({
       platform: "ios",
       label: "Download on the App Store",
       href: storeLinks.ios,
-      badgeSrc: "/content/store-badges/app-store.svg",
+      badgeSrc: "/content/store-badges/app-store.png",
     },
   ];
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4">
+    <div className="flex flex-wrap items-center justify-center gap-3 laptop:gap-4">
       {storeBadges.map((storeBadge) => {
         const badgeImage = (
-          // Official store badges — keep intrinsic aspect ratio
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={storeBadge.badgeSrc}
             alt={storeBadge.label}
-            className="h-14 w-auto object-contain laptop:h-16"
+            width={STORE_BADGE_WIDTH}
+            height={STORE_BADGE_HEIGHT}
+            style={{
+              display: "block",
+              width: 188,
+              height: 56,
+            }}
+            className="laptop:!h-16 laptop:!w-[215px]"
           />
         );
 
@@ -52,7 +61,7 @@ export const GameStoreButtons = ({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${storeBadge.label} — ${gameTitle}`}
-              className="transition-opacity hover:opacity-90"
+              className="inline-flex shrink-0 transition-opacity hover:opacity-90"
             >
               {badgeImage}
             </a>
@@ -63,7 +72,7 @@ export const GameStoreButtons = ({
           <span
             key={storeBadge.platform}
             aria-disabled="true"
-            className="cursor-default opacity-50"
+            className="inline-flex shrink-0 cursor-default opacity-50"
           >
             {badgeImage}
           </span>
