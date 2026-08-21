@@ -15,6 +15,9 @@ export interface GameStoreLinks {
 export const hookWarsGooglePlayUrl =
   "https://play.google.com/store/apps/details?id=com.united4digital.u4g.hookwars";
 
+export const hookWarsAppStoreUrl =
+  "https://apps.apple.com/ua/app/hook-wars-multiplayer-arena/id6796652683";
+
 export interface GameItem {
   id: string;
   title: string;
@@ -40,6 +43,7 @@ export const games: GameItem[] = [
     },
     storeLinks: {
       android: hookWarsGooglePlayUrl,
+      ios: hookWarsAppStoreUrl,
     },
   },
 ];
