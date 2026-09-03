@@ -15,15 +15,14 @@ import {
 import { ContactRecipientField } from "@/app/ui/ContactForm/ContactRecipientField";
 import { sendContactMail } from "@/app/lib/sendContactMail";
 import { defaultContactRecipient } from "@/app/lib/contactRecipients";
-import { socialLinks } from "@/app/lib/socialLinks";
+import { linkedInUrl, socialLinks } from "@/app/lib/socialLinks";
 import { Button } from "@/app/ui/Button/Button";
 import { LinkedInIcon } from "@/app/ui/Social/SocialLinks";
 import { Loading } from "@/app/ui/Loading/Loading";
 import { SuccessMessage } from "@/app/ui/SuccessMessage/SuccessMessage";
 
 const linkedInLink = socialLinks.find((link) => link.id === "linkedin");
-const linkedInHref =
-  linkedInLink?.href ?? "https://www.linkedin.com/company/united4games/";
+const linkedInHref = linkedInLink?.href ?? linkedInUrl;
 
 const getFieldClassName = (hasError: boolean) =>
   `form-input ${hasError ? "form-input-error" : ""}`;

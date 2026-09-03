@@ -4,6 +4,8 @@ export interface SocialLink {
   href?: string;
 }
 
+export const linkedInUrl = "https://www.linkedin.com/company/united4gamesu4d/";
+
 const readSocialUrl = (environmentKey: string): string | undefined => {
   const value = process.env[environmentKey]?.trim();
 
@@ -14,7 +16,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: "linkedin",
     label: "LinkedIn",
-    href: readSocialUrl("NEXT_PUBLIC_SOCIAL_LINKEDIN_URL"),
+    href: readSocialUrl("NEXT_PUBLIC_SOCIAL_LINKEDIN_URL") ?? linkedInUrl,
   },
   {
     id: "instagram",
