@@ -2,9 +2,9 @@ import type { LegalDocumentContent } from "@/app/types/legalDocument";
 
 export const privacyPolicyContent: LegalDocumentContent = {
   title: "Privacy Policy",
-  lastUpdated: "30.07.2026",
+  lastUpdated: "07.09.2026",
   intro: [
-    { type: "paragraph", text: "This Privacy Policy (\"Privacy Policy\") explains how UNITED4DIGITAL LTD,  legal address: 71-75 Shelton Street, Covent Garden, London, England, WC2H 9JQ, registration number: 15785227 (\"Company,\" \"we,\" \"our,\" or \"us\") collects, uses, shares, stores, and otherwise processes personal data when you download, install, access, or use Hook Wars (the \"App\")." },
+    { type: "paragraph", text: "This Privacy Policy (\"Privacy Policy\") explains how UNITED4DIGITAL LTD, legal address: 71-75 Shelton Street, Covent Garden, London, England, WC2H 9JQ, registration number: 15785227 (\"Company,\" \"we,\" \"our,\" or \"us\") collects, uses, shares, stores, and otherwise processes personal data when you download, install, access, or use Hook Wars (the \"App\")." },
     { type: "paragraph", text: "This Privacy Policy applies solely to the App and any related services provided by the Company in connection with the App." },
     { type: "paragraph", text: "Please read this Privacy Policy carefully to understand how we process your personal data and what rights you may have under applicable data protection laws." },
     { type: "paragraph", text: "By using the App, you acknowledge that your personal data may be processed as described in this Privacy Policy." },
@@ -50,6 +50,7 @@ export const privacyPolicyContent: LegalDocumentContent = {
                 "any other information you voluntarily provide to us",
               ],
             },
+            { type: "paragraph", text: "Where you choose to create a registered account, we may collect account information such as your email address, account identifier, authentication information, and other information necessary to create, secure, and manage your account." },
           ],
         },
         {
@@ -113,6 +114,15 @@ export const privacyPolicyContent: LegalDocumentContent = {
             { type: "paragraph", text: "Such information may be used to deliver, mediate, measure, optimize, and report on advertisements, prevent advertising fraud and abuse, and, where permitted by applicable law, provide personalized advertising." },
           ],
         },
+        {
+          id: "purchase-information",
+          title: "3.5 Purchase Information",
+          blocks: [
+            { type: "paragraph", text: "If you make an in-app purchase, we and our service providers may process information relating to the purchase, such as the purchased product or entitlement, transaction or purchase identifiers, purchase status, price and currency information, and other information necessary to process, validate, manage, restore, or support the purchase." },
+            { type: "paragraph", text: "Payments are processed by the applicable platform provider, such as Google Play or the Apple App Store. We do not receive or store your full payment card number or full payment card details." },
+            { type: "paragraph", text: "We may use third-party services, including RevenueCat, to validate purchases, manage purchase-related entitlements, support restoration of eligible purchases, and provide related functionality and analytics." },
+          ],
+        },
       ],
     },
     {
@@ -135,6 +145,8 @@ export const privacyPolicyContent: LegalDocumentContent = {
             "to communicate with you regarding the App, including responding to your requests or inquiries",
             "to comply with applicable laws, regulations, legal processes, or requests from competent authorities",
             "to establish, exercise, or defend our legal rights",
+            "to create, authenticate, maintain, and secure registered user accounts where you choose to create an account",
+            "to process, validate, manage, support, and restore eligible in-app purchases, Virtual Items, Virtual Currency, and purchase-related entitlements",
           ],
         },
         { type: "paragraph", text: "We may also use Personal Data for any other purpose that is compatible with the purposes described in this Privacy Policy or as otherwise permitted or required by applicable law." },
@@ -201,39 +213,43 @@ export const privacyPolicyContent: LegalDocumentContent = {
       title: "7. Sharing of Personal Data",
       blocks: [
         { type: "paragraph", text: "We may share Personal Data with third parties where necessary to provide, operate, maintain, improve, and secure the App, to comply with legal obligations, or as otherwise described in this Privacy Policy." },
-        { type: "paragraph", text: "For example, we may share Personal Data with:" },
+        { type: "paragraph", text: "We may share Personal Data with the following categories of recipients:" },
         {
           type: "list",
           items: [
             "service providers that help us operate, host, maintain, and support the App and its infrastructure",
             "multiplayer service providers that enable online gameplay, matchmaking, and related functionality",
             "analytics providers that help us understand how the App is used, improve gameplay, and monitor performance",
-            "advertising and monetization partners, including advertising networks, mediation platforms, advertising exchanges, demand-side platforms (DSPs), supply-side platforms (SSPs), measurement and attribution providers, and fraud prevention providers, that help deliver, mediate, measure, optimize, and protect advertisements, including rewarded advertisements and, where permitted by applicable law, personalized advertising",
-            "platform providers, such as Google Play and the Apple App Store, in connection with the distribution and operation of the App",
-            "professional advisors, including lawyers, auditors, accountants, and insurers, where necessary for legal, regulatory, or legitimate business purposes",
+            "advertising and monetization partners, including advertising networks, mediation platforms, advertising exchanges, demand-side platforms (DSPs), supply-side platforms (SSPs), measurement, and fraud prevention service providers",
+            "platform providers, such as Google Play and the Apple App Store",
+            "payment, purchase management, and entitlement service providers that help process, validate, manage, support, and restore in-app purchases and related digital content",
+            "professional advisors, including lawyers, auditors, accountants, and insurers",
             "competent authorities, regulators, courts, or law enforcement agencies where disclosure is required by applicable law or legal process",
-            "third parties involved in a merger, acquisition, financing, reorganization, sale of assets, or other corporate transaction involving the Company",
+            "third parties involved in a merger, acquisition, financing, reorganization, sale of assets, or other corporate transaction",
           ],
         },
-        { type: "paragraph", text: "The App currently uses third-party services that may process Personal Data in accordance with their own privacy policies. These services currently include multiplayer infrastructure providers, analytics providers, crash reporting services, remote configuration services, and advertising partners." },
-        { type: "paragraph", text: "We encourage you to review the privacy policies of the third-party services you interact with through the App." },
+        { type: "paragraph", text: "The App currently uses third-party services for multiplayer infrastructure, analytics, crash reporting, remote configuration, in-app purchase management, and advertising, as further described in Section 8 below. We encourage you to review the privacy policies of these third-party services." },
       ],
     },
     {
       id: "third-party-services",
       title: "8. Third-Party Services",
       blocks: [
-        { type: "paragraph", text: "We use third-party services to support the operation, functionality, security, analytics, advertising, and performance of the App. These third-party services may process Personal Data in accordance with their own privacy policies and applicable laws." },
-        { type: "paragraph", text: "Our current third-party service providers include:" },
-        { type: "paragraph", text: "Photon – provides multiplayer infrastructure, matchmaking, and online gameplay services." },
-        { type: "paragraph", text: "Firebase – provides crash reporting, remote configuration, and related platform services." },
-        { type: "paragraph", text: "GameAnalytics – provides analytics, gameplay insights, and performance monitoring." },
-        { type: "paragraph", text: "AppLovin MAX – provides advertising mediation and related advertising services." },
-        { type: "paragraph", text: "Google AdMob – provides advertising and advertising mediation services." },
-        { type: "paragraph", text: "IronSource/LevelPlay – provides advertising mediation services." },
-        { type: "paragraph", text: "Unity Ads – provides advertising services." },
-        { type: "paragraph", text: "RevenueCat – provides in-app purchase and subscription management, purchase validation, entitlement management, and related analytics services." },
-        { type: "paragraph", text: "The third-party services used in the App may change from time to time. We encourage you to review the privacy policies of such third-party providers to better understand how they process Personal Data." },
+        { type: "paragraph", text: "The App currently integrates the following Third-Party Services:" },
+        {
+          type: "list",
+          items: [
+            "Photon — provides multiplayer infrastructure, matchmaking, and online gameplay services",
+            "Firebase — provides crash reporting, remote configuration, and related platform services",
+            "GameAnalytics — provides analytics, gameplay insights, and performance monitoring",
+            "AppLovin MAX — provides advertising mediation and related advertising services",
+            "Google AdMob — provides advertising and advertising mediation services",
+            "IronSource/LevelPlay — provides advertising mediation services",
+            "Unity Ads — provides advertising services",
+            "RevenueCat — provides in-app purchase and subscription management, purchase validation, entitlement management, and related analytics services",
+          ],
+        },
+        { type: "paragraph", text: "The Third-Party Services used by the App may change from time to time." },
       ],
     },
     {
@@ -271,8 +287,7 @@ export const privacyPolicyContent: LegalDocumentContent = {
       blocks: [
         { type: "paragraph", text: "The App is not directed to children and is intended for individuals who have reached the minimum age required under the laws applicable in their jurisdiction to use the App and, where applicable, to consent to the processing of their Personal Data." },
         { type: "paragraph", text: "We do not knowingly collect Personal Data from children in violation of applicable law. If we become aware that we have collected Personal Data from a child in a manner that is not permitted by applicable law, we will take appropriate steps to delete such Personal Data or otherwise comply with applicable legal requirements." },
-        { type: "paragraph", text: "If you are a parent or legal guardian and believe that your child has provided Personal Data to us in violation of applicable law, please contact us using the contact details provided in this Privacy Policy. We will review your request and take appropriate action where required." },
-        { type: "paragraph", text: "Parents or legal guardians may also request that we restrict or terminate a child's access to the App where permitted or required by applicable law." },
+        { type: "paragraph", text: "If you are a parent or legal guardian and believe that your child has provided Personal Data to us in violation of applicable law, please contact us using the contact details provided in this Privacy Policy." },
       ],
     },
     {
@@ -284,17 +299,17 @@ export const privacyPolicyContent: LegalDocumentContent = {
         {
           type: "list",
           items: [
-            "provide and operate the App",
-            "remember your settings and preferences",
-            "enable multiplayer functionality",
-            "analyze App usage and performance",
-            "display, measure, and improve advertisements",
-            "provide rewarded advertisements and associated in-game rewards",
-            "maintain the security and integrity of the App",
+            "provide functionality",
+            "remember your settings",
+            "enable multiplayer features",
+            "analyze usage",
+            "display advertisements",
+            "provide rewards",
+            "maintain security",
           ],
         },
         { type: "paragraph", text: "Where required by applicable law, we will obtain your consent before using certain technologies for analytics, personalized advertising, or other processing activities that require consent." },
-        { type: "paragraph", text: "You may be able to manage certain privacy preferences through your device settings, including limiting or resetting advertising identifiers, or by using any consent choices made available within the App where required by applicable law." },
+        { type: "paragraph", text: "You may be able to manage certain privacy preferences through your device settings, including by limiting the use of advertising identifiers, or through consent choices made available within the App where required by applicable law." },
       ],
     },
     {
@@ -307,8 +322,8 @@ export const privacyPolicyContent: LegalDocumentContent = {
       ],
       subsections: [
         {
-          id: "additional-information-for-residents-of-the-eea-united-kingdom-and-switzerland",
-          title: "14.1 Additional Information for Residents of the EEA, United Kingdom and Switzerland",
+          id: "eea-united-kingdom-and-switzerland",
+          title: "14.1 EEA, United Kingdom, and Switzerland",
           blocks: [
             { type: "paragraph", text: "If you are located in the European Economic Area (\"EEA\"), the United Kingdom, or Switzerland, and applicable data protection laws apply to the processing of your Personal Data, you may have the right to:" },
             {
@@ -337,8 +352,8 @@ export const privacyPolicyContent: LegalDocumentContent = {
           ],
         },
         {
-          id: "additional-information-for-california-residents",
-          title: "14.2 Additional Information for California Residents",
+          id: "california-residents",
+          title: "14.2 California Residents",
           blocks: [
             { type: "paragraph", text: "If you are a California resident, you may have certain rights under applicable California privacy laws, including the right to know, access, correct, delete, and obtain information about the Personal Data we collect, use, disclose, or share, subject to applicable exceptions." },
             { type: "paragraph", text: "Where required by applicable law, you may also have the right to opt out of certain processing activities, including the sharing or use of Personal Data for purposes that constitute targeted or cross-context behavioral advertising under applicable law." },
@@ -361,16 +376,16 @@ export const privacyPolicyContent: LegalDocumentContent = {
       title: "15. Changes to this Privacy Policy",
       blocks: [
         { type: "paragraph", text: "We may update this Privacy Policy from time to time to reflect changes in the App, applicable laws, our data processing practices, or for other legitimate business reasons." },
-        { type: "paragraph", text: "If we make material changes to this Privacy Policy, we will provide appropriate notice where required by applicable law. Such notice may be provided through the App, on our website (if any), through the applicable app store page, or by other reasonable means." },
+        { type: "paragraph", text: "If we make material changes to this Privacy Policy, we will provide appropriate notice through the App, on the applicable app store page, on our website (if any), or by other reasonable means, where required by applicable law." },
         { type: "paragraph", text: "The updated Privacy Policy will become effective on the date indicated by the \"Last Updated\" date at the beginning of this Privacy Policy." },
-        { type: "paragraph", text: "Your continued use of the App after the effective date of the updated Privacy Policy constitutes your acknowledgment of the revised Privacy Policy." },
+        { type: "paragraph", text: "Your continued access to or use of the App after the effective date of the updated Privacy Policy constitutes your acceptance of the revised Privacy Policy." },
       ],
     },
     {
       id: "contact-information",
       title: "16. Contact Information",
       blocks: [
-        { type: "paragraph", text: "If you have any questions, concerns, requests, or complaints regarding this Privacy Policy or our processing of your Personal Data, please contact us using the details below:" },
+        { type: "paragraph", text: "If you have any questions, concerns, or requests regarding this Privacy Policy or our processing of your Personal Data, please contact us using the details below:" },
         { type: "paragraph", text: "Company Name: UNITED4DIGITAL LTD" },
         { type: "paragraph", text: "Email: support@united4digital.com" },
         { type: "paragraph", text: "Address: 71-75 Shelton Street, Covent Garden, London, England, WC2H 9JQ" },
