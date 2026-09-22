@@ -12,5 +12,6 @@ export const externalLinks = {
 export const sectionLinks: NavLink[] = [
   { name: "Our Games", href: "/#our-games" },
   { name: "Marketing & Partners", href: "/#marketing-partners" },
+  { name: "Careers", href: "/careers" },
   { name: "Contact Us", href: externalLinks.contactUs },
 ];
