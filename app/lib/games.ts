@@ -39,6 +39,8 @@ export const games: GameItem[] = [
         "/content/IMAGE1.jpg",
         "/content/IMAGE2.jpg",
         "/content/IMAGE3.jpg",
+        "/content/IMAGE4.jpg",
+        "/content/IMAGE5.jpg",
       ],
     },
     storeLinks: {
